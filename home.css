@@ -1,0 +1,125 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: lightgray;
+}
+
+#home {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin: 1% 25px 0 25px;
+    background-color: white;
+    padding: 2%;
+}
+
+header {
+    margin: 0 auto;
+    margin-bottom: 2%;
+    padding: 5vh 4%;
+    border: 2px solid;
+    filter: drop-shadow(5px -10px 12px black);
+    text-align: center;
+}
+
+#screenshot {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    width: 75%;
+    margin-left: auto;
+}
+
+#screenshot img {
+    width: 45%;
+    height: auto;
+    margin: 2%;
+}
+
+.row {
+    display: flex;
+    width: 100%;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+}
+
+.column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#sticky {
+    position: sticky;
+    top: 10px;
+    width: 20%;
+    margin-right: 5%;
+}
+
+#filter {
+    width: 100%;
+}
+
+#filterBTN {
+    margin-bottom: 25%;
+    padding: 12% 0 12% 25%;
+    border: 2px solid;
+}
+
+.dropbtn {
+    background-color: white;
+    color: black;
+    padding: 10px 50px;
+    font-size: 16px;
+    border: 2px solid;
+    border-radius: 12%;
+    cursor: pointer;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 275px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content p {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content p:hover {
+    background-color: #f1f1f1;
+}
+
+/* Show dropdown content on hover */
+.temperature:hover .dropdown-content,
+.location:hover .dropdown-content,
+.weather:hover .dropdown-content {
+    display: block;
+}
+
+.temperature:hover .dropbtn,
+.location:hover .dropbtn,
+.weather:hover .dropbtn {
+    background-color: darkgray;
+}
+
+.location {
+    margin-bottom: 12%;
+}
+
+.weather {
+    margin-top: 12%;
+}
