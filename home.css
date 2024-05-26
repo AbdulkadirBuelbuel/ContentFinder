@@ -12,18 +12,42 @@ body {
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
-    margin: 1% 25px 0 25px;
     background-color: white;
     padding: 2%;
+    padding-top: 10%;
+    z-index: -1;
 }
 
 header {
-    margin: 0 auto;
-    margin-bottom: 2%;
-    padding: 5vh 4%;
+    position: relative;
+    display: flex;
+    top: 80px;
+    border-bottom: 1px solid lightgray;
+    z-index: 1;
+}
+
+h1 {
+    padding: 4% 3vh;
+    margin-left: 1%;
     border: 2px solid;
-    filter: drop-shadow(5px -10px 12px black);
     text-align: center;
+    background-color: lightgray;
+}
+
+header img {
+    width: 100px;
+    height: 100px;
+    margin-left: 25px;
+    margin-top: 4%;
+    background-color: lightgray;
+}
+
+header #rect {
+    margin-top: 4%;
+    width: 300px;
+    height: 100px;
+    background-color: lightgray;
+    margin-left: 20%;
 }
 
 #screenshot {
@@ -66,9 +90,14 @@ header {
 }
 
 #filterBTN {
+    margin-top: 25%;
     margin-bottom: 25%;
     padding: 12% 0 12% 25%;
     border: 2px solid;
+}
+
+#expansion {
+    display: none;
 }
 
 .dropbtn {
