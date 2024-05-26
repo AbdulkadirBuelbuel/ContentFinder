@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     let calendarEl = document.getElementById('calendar');
 
-    var calendar = new FullCalendar.Calendar(calendarEl, {
+    let calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
         dayMaxEventRows: true,
         dayMaxEvents: true,
@@ -24,4 +24,14 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     calendar.render();
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    let filterBTN = document.getElementById('filterBTN');
+    let expansion = document.getElementById('expansion');
+
+    filterBTN.addEventListener('click', function () {
+        filterBTN.style.backgroundColor = "darkgray";
+        expansion.style.display = "block";
+    });
 });
