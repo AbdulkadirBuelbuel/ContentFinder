@@ -116,7 +116,7 @@ header #rect {
     padding: 10px 50px;
     font-size: 16px;
     border: 2px solid;
-    border-radius: 12%;
+    border-radius: 5%;
     cursor: pointer;
 }
 
@@ -147,6 +147,7 @@ header #rect {
 .location:hover .dropdown-content,
 .weather:hover .dropdown-content {
     display: block;
+    margin-bottom: 25px;
 }
 
 .temperature:hover .dropbtn,
