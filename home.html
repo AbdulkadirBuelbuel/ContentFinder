@@ -2,86 +2,116 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-        content="Software, die die Bildschirmfotos auf eine Art und Weise visualisiert, die es ermöglicht, das Nutzerverhalten besser zu verstehen." />
-    <meta name="keywords" content="content, finder" />
-    <meta name="author" content="Abdulkadir Bülbül, Adis, Ali Hamid, Fabian Richter" />
+        content="Software, die die Bildschirmfotos auf eine Art und Weise visualisiert, die es ermöglicht, das Nutzerverhalten besser zu verstehen.">
+    <meta name="keywords" content="content, finder">
+    <meta name="author" content="Abdulkadir Bülbül, Adis, Ali Hamid, Fabian Richter">
     <title>Home</title>
-    <!-- FullCalendar CSS-->
-    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css' rel='stylesheet' />
-    <!-- FullCalendar JS-->
-    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js'></script>
-    <link rel="stylesheet" href="home.css" type="text/css" />
-    <script src="script.js"></script>
+    <!-- FullCalendar CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="home.css" type="text/css">
+    <!-- FullCalendar JS -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js" defer></script>
+    <script src="script.js" defer></script>
 </head>
 
 <body>
     <header>
         <h1>ContentFinders</h1>
-        <img id="herzsymbol" src="herzsymbol.png" alt="Herzsymbol" />
-        <img id="filter-symbol" src="filter.png" alt="Filter" />
-        <img id="statistics" src="statistics.png" alt="Statistics" />
+        <a href="saved.html"><img id="herzsymbol" src="herzsymbol.png" alt="Herzsymbol"></a>
+        <img id="filter-symbol" src="filter.png" alt="Filter">
+        <img id="statistics" src="statistics.png" alt="Statistics">
         <div id="rect"></div>
     </header>
     <main id="home">
-        <aside id="sticky">
-            <div id="filter">
-                <div id="calendar">
-                    Uhr
-                </div>
+        <aside id="sidebar">
+            <div id="calendar-container">
+                <div id="calendar"></div>
+            </div>
+            <div id="time-input">
+                <label for="time">Zeit eingeben:</label>
+                <input type="time" id="time" name="time">
             </div>
             <div id="filterBTN">
                 <h3>Weitere Filter</h3>
             </div>
             <div id="expansion">
-                <div id="dropdown">
-                    <div class="dropdown location">
-                        <button class="dropbtn">Standort wählen</button>
-                        <div class="dropdown-content">
-                            <p>Screenshotseite - Kein Wert</p>
-                            <p>Screenshotseite - Stadtteil auswählen</p>
-                            <p>Screenshotseite - Startseite</p>
-                            <p>Screenshotseite - Ort suchen</p>
-                            <p>Screenshotseite - Route berechnen</p>
-                            <p>Screenshotseite - Point of Interest</p>
-                        </div>
+                <div class="dropdown location">
+                    <button class="dropbtn-location">Standort wählen</button>
+                    <div class="dropdown-content">
+                        <p>Screenshotseite - Kein Wert</p>
+                        <p>Screenshotseite - Stadtteil auswählen</p>
+                        <p>Screenshotseite - Startseite</p>
+                        <p>Screenshotseite - Ort suchen</p>
+                        <p>Screenshotseite - Route berechnen</p>
+                        <p>Screenshotseite - Point of Interest</p>
                     </div>
-                    <div class="dropdown temperature">
-                        <button class="dropbtn">Temperatur wählen</button>
-                        <div class="dropdown-content">
-                            <p>Temperatur: Kein Wert</p>
-                            <p>Temperatur: -10 - 0 Grad</p>
-                            <p>Temperatur: 0 - 10 Grad</p>
-                            <p>Temperatur: 10 - 20 Grad</p>
-                            <p>Temperatur: 20 - 30 Grad</p>
-                            <p>Temperatur: 30- 40 Grad</p>
-                        </div>
+                </div>
+                <div class="dropdown temperature">
+                    <button class="dropbtn-temperature">Temperatur wählen</button>
+                    <div class="dropdown-content">
+                        <p>Temperatur: Kein Wert</p>
+                        <p>Temperatur: -10 - 0 Grad</p>
+                        <p>Temperatur: 0 - 10 Grad</p>
+                        <p>Temperatur: 10 - 20 Grad</p>
+                        <p>Temperatur: 20 - 30 Grad</p>
+                        <p>Temperatur: 30- 40 Grad</p>
                     </div>
-                    <div class="dropdown weather">
-                        <button class="dropbtn">Wetterbedingung wählen</button>
-                        <div class="dropdown-content">
-                            <p>Wetterstatus: Kein Wert</p>
-                            <p>Wetterstatus: bewölkt</p>
-                            <p>Wetterstatus: sonnig</p>
-                            <p>Wetterstatus: regnet</p>
-                            <p>Wetterstatus: windig</p>
-                            <p>Wetterstatus: schneit</p>
-                        </div>
+                </div>
+                <div class="dropdown weather">
+                    <button class="dropbtn-weather">Wetterbedingung wählen</button>
+                    <div class="dropdown-content">
+                        <p>Wetterstatus: Kein Wert</p>
+                        <p>Wetterstatus: bewölkt</p>
+                        <p>Wetterstatus: sonnig</p>
+                        <p>Wetterstatus: regnet</p>
+                        <p>Wetterstatus: windig</p>
+                        <p>Wetterstatus: schneit</p>
                     </div>
                 </div>
             </div>
         </aside>
-        <section id="screenshot">
-            <!-- Beispiel Screenshots-->
-            <div class="row">
-                <div class="column">
-                    <img src="screen-right-2022-05-06-16-16.bmp" alt="Screenshot left view 1" />
+        <section id="content">
+            <div class="controls">
+                <button class="arrow" id="prev">&lt;</button>
+                <span id="date-span">08. Februar 2022</span>
+                <button class="arrow" id="next">&gt;</button>
+            </div>
+            <div id="screenshot">
+                <div class="screenshot-display">
+                    <button class="arrow-left">&lt;</button>
+                    <div class="info">
+                        <h2>Left Display</h2>
+                        <p><i>06:11 Uhr</i></p>
+                        <p><b>Screenshotseite: </b>Stadtteil auswählen</p>
+                        <p><b>Temperatur: </b> 6 Grad</p>
+                        <p><b>Wetterstatus: </b> regnet</p>
+                    </div>
+                    <img src="screen-right-2022-05-06-16-16.bmp" alt="Screenshot left view">
+                    <div class="heart-symbol-container">
+                        <div class="heart-symbol empty left" onclick="toggleHeart('left')"></div>
+                    </div>
+                    <button class="arrow-right">&gt;</button>
                 </div>
-                <div class="column">
-                    <img src="screen-right-2022-05-06-16-16.bmp" alt="Screenshot right view 1" />
+
+                <div class="screenshot-display">
+                    <button class="arrow-left">&lt;</button>
+                    <div class="info">
+                        <h2>Right Display</h2>
+                        <p><i>07:51 Uhr</i></p>
+                        <p><b>Screenshotseite: </b> Startseite</p>
+                        <p><b>Temperatur: </b> 9 Grad</p>
+                        <p><b>Wetterstatus: </b> bewölkt</p>
+                    </div>
+                    <img src="screen-right-2022-05-06-16-16.bmp" alt="Screenshot right view">
+                    <div class="heart-symbol-container">
+                        <div class="heart-symbol empty right" onclick="toggleHeart('right')"></div>
+                    </div>
+                    <button class="arrow-right">&gt;</button>
                 </div>
+
             </div>
         </section>
     </main>

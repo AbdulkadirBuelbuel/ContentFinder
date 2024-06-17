@@ -1,37 +1,124 @@
+let calendarEl = document.getElementById('calendar');
+
 document.addEventListener('DOMContentLoaded', function () {
-    let calendarEl = document.getElementById('calendar');
+    let dateSpan = document.getElementById('date-span');
+    let currentDate = new Date('2022'); // Initiales Datum, das mit dem <span> synchronisiert ist
+
+    function updateDateSpan() {
+        dateSpan.textContent = currentDate.toLocaleDateString('de-DE', {
+            day: '2-digit',
+            month: 'long',
+            year: 'numeric'
+        });
+    }
 
     let calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
-        dayMaxEventRows: true,
-        dayMaxEvents: true,
-        events: [
-            {
-                title: 'Event 1',
-                start: '2023-05-01'
-            },
-            {
-                title: 'Event 2',
-                start: '2023-05-07',
-                end: '2023-05-10'
-            },
-            {
-                title: 'Event 3',
-                start: '2023-05-09T12:30:00',
-                allDay: false
-            }
-        ]
+        initialDate: currentDate,
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth'
+        },
+        dateClick: function (info) {
+            currentDate = new Date(info.dateStr);
+            updateDateSpan();
+        }
     });
 
     calendar.render();
+    updateDateSpan();
+
+    document.getElementById('prev').addEventListener('click', function () {
+        currentDate.setDate(currentDate.getDate() - 1);
+        calendar.gotoDate(currentDate);
+        updateDateSpan();
+    });
+
+    document.getElementById('next').addEventListener('click', function () {
+        currentDate.setDate(currentDate.getDate() + 1);
+        calendar.gotoDate(currentDate);
+        updateDateSpan();
+    });
 });
 
+/*// Überprüfe den gespeicherten Zustand des Herzens beim Laden der Seite
 document.addEventListener('DOMContentLoaded', function () {
-    let filterBTN = document.getElementById('filterBTN');
-    let expansion = document.getElementById('expansion');
+    // Überprüfe den Zustand des linken Herzensymbols
+    let leftHeartState = localStorage.getItem('leftHeartState');
+    if (leftHeartState === 'filled') {
+        document.querySelector('.heart-symbol.left').classList.add('filled');
+    }
 
-    filterBTN.addEventListener('click', function () {
-        filterBTN.style.backgroundColor = "darkgray";
-        expansion.style.display = "block";
-    });
+    // Überprüfe den Zustand des rechten Herzensymbols
+    let rightHeartState = localStorage.getItem('rightHeartState');
+    if (rightHeartState === 'filled') {
+        document.querySelector('.heart-symbol.right').classList.add('filled');
+    }
+});
+
+// Funktion zum Ändern des Herzsymbolzustands
+function toggleHeart(display) {
+    let heartSymbol = document.querySelector('.heart-symbol.' + display);
+    heartSymbol.classList.toggle('filled');
+
+    // Speichere den Zustand des Herzensymbols im localStorage
+    let localStorageKey = display === 'left' ? 'leftHeartState' : 'rightHeartState';
+    if (heartSymbol.classList.contains('filled')) {
+        localStorage.setItem(localStorageKey, 'filled');
+    } else {
+        localStorage.setItem(localStorageKey, 'empty');
+    }
+}*/
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Überprüfe den Zustand des linken Herzensymbols
+    let leftHeartState = localStorage.getItem('leftHeartState');
+    if (leftHeartState === 'filled') {
+        document.querySelector('.heart-symbol.left').classList.add('filled');
+    }
+
+    // Überprüfe den Zustand des rechten Herzensymbols
+    let rightHeartState = localStorage.getItem('rightHeartState');
+    if (rightHeartState === 'filled') {
+        document.querySelector('.heart-symbol.right').classList.add('filled');
+    }
+});
+
+// Funktion zum Ändern des Herzsymbolzustands
+function toggleHeart(display) {
+    let heartSymbol = document.querySelector('.heart-symbol.' + display);
+    heartSymbol.classList.toggle('filled');
+
+    // Speichere den Zustand des Herzensymbols im localStorage
+    let localStorageKey = display === 'left' ? 'leftHeartState' : 'rightHeartState';
+    if (heartSymbol.classList.contains('filled')) {
+        localStorage.setItem(localStorageKey, 'filled');
+    } else {
+        localStorage.setItem(localStorageKey, 'empty');
+    }
+}
+
+// JavaScript für saved.html
+function loadSavedScreenshots() {
+    // Überprüfe den Zustand des linken Herzensymbols
+    var leftHeartState = localStorage.getItem('leftHeartState');
+    if (leftHeartState === 'filled') {
+        var leftScreenshotSrc = localStorage.getItem('leftScreenshotSrc');
+        document.getElementById('leftScreenshot').setAttribute('src', leftScreenshotSrc);
+        document.querySelector('.heart-symbol.left').classList.add('filled');
+    }
+
+    // Überprüfe den Zustand des rechten Herzensymbols
+    var rightHeartState = localStorage.getItem('rightHeartState');
+    if (rightHeartState === 'filled') {
+        var rightScreenshotSrc = localStorage.getItem('rightScreenshotSrc');
+        document.getElementById('rightScreenshot').setAttribute('src', rightScreenshotSrc);
+        document.querySelector('.heart-symbol.right').classList.add('filled');
+    }
+}
+
+// Lade die gespeicherten Bilder beim Laden der Seite
+document.addEventListener('DOMContentLoaded', function () {
+    loadSavedScreenshots();
 });
