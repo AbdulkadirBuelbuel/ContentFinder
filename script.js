@@ -2,7 +2,7 @@ let calendarEl = document.getElementById('calendar');
 
 document.addEventListener('DOMContentLoaded', function () {
     let dateSpan = document.getElementById('date-span');
-    let currentDate = new Date('2022'); // Initiales Datum, das mit dem <span> synchronisiert ist
+    let currentDate = new Date('2022-06'); // Initiales Datum, das mit dem <span> synchronisiert ist
 
     function updateDateSpan() {
         dateSpan.textContent = currentDate.toLocaleDateString('de-DE', {
@@ -42,7 +42,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-/*// Überprüfe den gespeicherten Zustand des Herzens beim Laden der Seite
 document.addEventListener('DOMContentLoaded', function () {
     // Überprüfe den Zustand des linken Herzensymbols
     let leftHeartState = localStorage.getItem('leftHeartState');
@@ -69,34 +68,26 @@ function toggleHeart(display) {
     } else {
         localStorage.setItem(localStorageKey, 'empty');
     }
-}*/
+}
 
-document.addEventListener('DOMContentLoaded', function () {
-    // Überprüfe den Zustand des linken Herzensymbols
-    let leftHeartState = localStorage.getItem('leftHeartState');
-    if (leftHeartState === 'filled') {
-        document.querySelector('.heart-symbol.left').classList.add('filled');
+// Funktion zur Auswahl des Dropdown-Inhalts
+function selectDropdown(element, dropdownType) {
+    let button;
+    if (dropdownType === 'location') {
+        button = document.querySelector('.dropdown.location .dropbtn-location');
+    } else if (dropdownType === 'temperature') {
+        button = document.querySelector('.dropdown.temperature .dropbtn-temperature');
+    } else if (dropdownType === 'weather') {
+        button = document.querySelector('.dropdown.weather .dropbtn-weather');
     }
+    button.textContent = element.textContent;
+}
 
-    // Überprüfe den Zustand des rechten Herzensymbols
-    let rightHeartState = localStorage.getItem('rightHeartState');
-    if (rightHeartState === 'filled') {
-        document.querySelector('.heart-symbol.right').classList.add('filled');
-    }
-});
-
-// Funktion zum Ändern des Herzsymbolzustands
-function toggleHeart(display) {
-    let heartSymbol = document.querySelector('.heart-symbol.' + display);
-    heartSymbol.classList.toggle('filled');
-
-    // Speichere den Zustand des Herzensymbols im localStorage
-    let localStorageKey = display === 'left' ? 'leftHeartState' : 'rightHeartState';
-    if (heartSymbol.classList.contains('filled')) {
-        localStorage.setItem(localStorageKey, 'filled');
-    } else {
-        localStorage.setItem(localStorageKey, 'empty');
-    }
+// Funktion zum Zurücksetzen der Filter
+function resetFilters() {
+    document.querySelector('.dropdown.location .dropbtn-location').textContent = 'Standort wählen';
+    document.querySelector('.dropdown.temperature .dropbtn-temperature').textContent = 'Temperatur wählen';
+    document.querySelector('.dropdown.weather .dropbtn-weather').textContent = 'Wetterbedingung wählen';
 }
 
 // JavaScript für saved.html

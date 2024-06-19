@@ -83,11 +83,8 @@ aside#sidebar {
     text-align: center;
     cursor: pointer;
     margin-bottom: 10px;
-    /* Abstand unter dem Filter-Button */
-}
-
-#filterBTN:hover {
     background-color: lightgray;
+    /* Abstand unter dem Filter-Button */
 }
 
 #expansion {
@@ -143,12 +140,14 @@ aside#sidebar {
     z-index: 1;
     left: 17.5%;
     /* Positioniere den Dropdown-Inhalt rechts von der Sidebar */
-    top: 65%;
+    top: 45%;
+    cursor: pointer;
+    z-index: 1;
 }
 
 .dropdown-content p {
     color: black;
-    padding: 12px 16px;
+    padding: 22px 5px;
     text-decoration: none;
     display: block;
 }
@@ -159,6 +158,21 @@ aside#sidebar {
 
 .dropdown:hover .dropdown-content {
     display: block;
+}
+
+#reset-filters {
+    width: calc(100% - 20px);
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid;
+    border-radius: 5px;
+    background-color: white;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+#reset-filters:hover {
+    background-color: lightgray;
 }
 
 section#content {
@@ -254,7 +268,6 @@ section#content {
     font-size: 36px;
     /* Größere Pfeile */
     cursor: pointer;
-    z-index: 2;
     color: #555;
     /* Farbe der Pfeile */
 }
@@ -268,7 +281,6 @@ section#content {
     font-size: 36px;
     /* Größere Pfeile */
     cursor: pointer;
-    z-index: 2;
     color: #555;
     /* Farbe der Pfeile */
 }

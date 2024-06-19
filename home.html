@@ -41,42 +41,43 @@
                 <div class="dropdown location">
                     <button class="dropbtn-location">Standort wählen</button>
                     <div class="dropdown-content">
-                        <p>Screenshotseite - Kein Wert</p>
-                        <p>Screenshotseite - Stadtteil auswählen</p>
-                        <p>Screenshotseite - Startseite</p>
-                        <p>Screenshotseite - Ort suchen</p>
-                        <p>Screenshotseite - Route berechnen</p>
-                        <p>Screenshotseite - Point of Interest</p>
+                        <p onclick="selectDropdown(this, 'location')">Screenshotseite - Kein Wert</p>
+                        <p onclick="selectDropdown(this, 'location')">Screenshotseite - Stadtteil auswählen</p>
+                        <p onclick="selectDropdown(this, 'location')">Screenshotseite - Startseite</p>
+                        <p onclick="selectDropdown(this, 'location')">Screenshotseite - Ort suchen</p>
+                        <p onclick="selectDropdown(this, 'location')">Screenshotseite - Route berechnen</p>
+                        <p onclick="selectDropdown(this, 'location')">Screenshotseite - Point of Interest</p>
                     </div>
                 </div>
                 <div class="dropdown temperature">
                     <button class="dropbtn-temperature">Temperatur wählen</button>
                     <div class="dropdown-content">
-                        <p>Temperatur: Kein Wert</p>
-                        <p>Temperatur: -10 - 0 Grad</p>
-                        <p>Temperatur: 0 - 10 Grad</p>
-                        <p>Temperatur: 10 - 20 Grad</p>
-                        <p>Temperatur: 20 - 30 Grad</p>
-                        <p>Temperatur: 30- 40 Grad</p>
+                        <p onclick="selectDropdown(this, 'temperature')">Temperatur: Kein Wert</p>
+                        <p onclick="selectDropdown(this, 'temperature')">Temperatur: -10 - 0 Grad</p>
+                        <p onclick="selectDropdown(this, 'temperature')">Temperatur: 0 - 10 Grad</p>
+                        <p onclick="selectDropdown(this, 'temperature')">Temperatur: 10 - 20 Grad</p>
+                        <p onclick="selectDropdown(this, 'temperature')">Temperatur: 20 - 30 Grad</p>
+                        <p onclick="selectDropdown(this, 'temperature')">Temperatur: 30- 40 Grad</p>
                     </div>
                 </div>
                 <div class="dropdown weather">
                     <button class="dropbtn-weather">Wetterbedingung wählen</button>
                     <div class="dropdown-content">
-                        <p>Wetterstatus: Kein Wert</p>
-                        <p>Wetterstatus: bewölkt</p>
-                        <p>Wetterstatus: sonnig</p>
-                        <p>Wetterstatus: regnet</p>
-                        <p>Wetterstatus: windig</p>
-                        <p>Wetterstatus: schneit</p>
+                        <p onclick="selectDropdown(this, 'weather')">Wetterstatus: Kein Wert</p>
+                        <p onclick="selectDropdown(this, 'weather')">Wetterstatus: bewölkt</p>
+                        <p onclick="selectDropdown(this, 'weather')">Wetterstatus: sonnig</p>
+                        <p onclick="selectDropdown(this, 'weather')">Wetterstatus: regnet</p>
+                        <p onclick="selectDropdown(this, 'weather')">Wetterstatus: windig</p>
+                        <p onclick="selectDropdown(this, 'weather')">Wetterstatus: schneit</p>
                     </div>
                 </div>
+                <button id="reset-filters" onclick="resetFilters()">Reset Filters</button>
             </div>
         </aside>
         <section id="content">
             <div class="controls">
                 <button class="arrow" id="prev">&lt;</button>
-                <span id="date-span">08. Februar 2022</span>
+                <span id="date-span"></span>
                 <button class="arrow" id="next">&gt;</button>
             </div>
             <div id="screenshot">
