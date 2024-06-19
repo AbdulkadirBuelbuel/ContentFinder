@@ -160,3 +160,300 @@ header #rect {
 .weather {
     margin-top: 12%;
 } */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: lightgray;
+    font-family: Arial, sans-serif;
+    /* Seitenverschiebung verhindern */
+}
+
+header {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: white;
+    border-bottom: 1px solid lightgray;
+}
+
+h1 {
+    flex: 1;
+    text-align: center;
+}
+
+header img {
+    width: 45px;
+    height: 45px;
+    margin: 0 10px;
+}
+
+main {
+    display: flex;
+    height: calc(100vh - 70px);
+    /* Headerhöhe abziehen */
+}
+
+aside#sidebar {
+    width: 30%;
+    padding: 20px;
+    background-color: #f1f1f1;
+    border-right: 1px solid lightgray;
+    overflow-y: auto;
+    /* Scrollbalken bei Bedarf anzeigen */
+    max-height: calc(100vh - 70px);
+    /* Maximale Höhe der Sidebar berechnen */
+}
+
+#calendar-container {
+    margin-bottom: 20px;
+    /* Kleinerer Abstand unter dem Kalender */
+}
+
+.fc {
+    max-width: 100%;
+    padding-left: 2%;
+    padding-right: 2%;
+    /* Kalenderbreite anpassen */
+}
+
+#time-input {
+    margin-bottom: 10px;
+    /* Abstand unterhalb des Kalenders */
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid lightgray;
+}
+
+#time-input label {
+    margin-right: 10px;
+}
+
+#time-input input[type="time"] {
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid lightgray;
+    border-radius: 3px;
+}
+
+#filterBTN {
+    padding: 12px;
+    border: 2px solid;
+    text-align: center;
+    cursor: pointer;
+    margin-bottom: 10px;
+    background-color: lightgray;
+    /* Abstand unter dem Filter-Button */
+}
+
+#expansion {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: center;
+    /* Zentrierung der Knöpfe horizontal */
+    margin-top: 10%;
+    padding: 0 10px;
+    /* Horizontaler Abstand für die Knöpfe */
+}
+
+.dropbtn-location {
+    width: calc(100% - 0px);
+    padding: 10px 50px;
+    margin-bottom: 25%;
+    font-size: 16px;
+    border: 2px solid;
+    border-radius: 5px;
+    background-color: white;
+    cursor: pointer;
+}
+
+.dropbtn-temperature {
+    width: calc(100% - 0px);
+    padding: 10px 40px;
+    margin-bottom: 25%;
+    font-size: 16px;
+    border: 2px solid;
+    border-radius: 5px;
+    background-color: white;
+    cursor: pointer;
+}
+
+.dropbtn-weather {
+    width: calc(100% - 0px);
+    padding: 10px 20px;
+    margin-bottom: 5%;
+    font-size: 16px;
+    border: 2px solid;
+    border-radius: 5px;
+    background-color: white;
+    cursor: pointer;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 275px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    left: 17.5%;
+    /* Positioniere den Dropdown-Inhalt rechts von der Sidebar */
+    top: 45%;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.dropdown-content p {
+    color: black;
+    padding: 22px 5px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content p:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+#reset-filters {
+    width: calc(100% - 20px);
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid;
+    border-radius: 5px;
+    background-color: white;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+#reset-filters:hover {
+    background-color: lightgray;
+}
+
+section#content {
+    flex: 1;
+    padding: 20px;
+    background-color: white;
+    overflow-y: auto;
+    /* Scrollen innerhalb des Inhaltsbereichs ermöglichen */
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.controls .arrow {
+    background: none;
+    border: none;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+#screenshot {
+    display: flex;
+    justify-content: space-around;
+}
+
+.screenshot-display {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 45%;
+    padding: 16px;
+    border: 1px solid lightgray;
+    background-color: #f9f9f9;
+    margin-bottom: 20px;
+    /* Abstand zwischen den screenshot-display Elementen */
+}
+
+.heart-symbol-container {
+    position: absolute;
+    bottom: -8%;
+    /* Position unterhalb des Bildes anpassen */
+    left: 95%;
+    /* Zentrierung horizontal */
+    transform: translateX(-50%);
+    /* Horizontal zentrieren */
+}
+
+.heart-symbol {
+    font-size: 24px;
+    /* Größe des Herzsymbols anpassen */
+    color: black;
+    /* Farbe des Herzsymbols anpassen */
+    cursor: pointer;
+}
+
+.heart-symbol.empty:before {
+    content: '♡';
+}
+
+.heart-symbol.filled:before {
+    content: '♥';
+}
+
+
+.info p {
+    padding-top: 35%;
+    border-bottom: 2px solid #555;
+}
+
+.screenshot-display .info {
+    width: 50%;
+    padding-right: 16px;
+    text-align: left;
+}
+
+.screenshot-display img {
+    width: 67%;
+    height: auto;
+    border: 1px solid lightgray;
+}
+
+.arrow-left {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    font-size: 36px;
+    /* Größere Pfeile */
+    cursor: pointer;
+    color: #555;
+    /* Farbe der Pfeile */
+}
+
+.arrow-right {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    font-size: 36px;
+    /* Größere Pfeile */
+    cursor: pointer;
+    color: #555;
+    /* Farbe der Pfeile */
+}
+
+.arrow-left {
+    left: -5%;
+    /* Mehr Abstand nach links */
+}
+
+.arrow-right {
+    right: -5%;
+    /* Mehr Abstand nach rechts */
+}
