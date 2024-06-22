@@ -82,7 +82,7 @@
             </div>
             <div id="screenshot">
                 <div class="screenshot-display">
-                    <button class="arrow-left">&lt;</button>
+                    <button class="arrow-left" id="left-first">&lt;</button>
                     <div class="info">
                         <h2>Left Display</h2>
                         <p><i>06:11 Uhr</i></p>
@@ -90,11 +90,13 @@
                         <p><b>Temperatur:</b></br>6 Grad</p>
                         <p><b>Wetterstatus:</b></br>regnet</p>
                     </div>
-                    <img src="screen-right-2022-05-06-16-16.bmp" alt="Screenshot left view">
+                    <div class="row" id="imageContainer">
+                        <!-- Bilder werden hier dynamisch eingefügt -->
+                    </div>
                     <div class="heart-symbol-container">
                         <div class="heart-symbol empty left" onclick="toggleHeart('left')"></div>
                     </div>
-                    <button class="arrow-right">&gt;</button>
+                    <button class="arrow-right" id="right-first">&gt;</button>
                 </div>
 
                 <div class="screenshot-display">
@@ -106,7 +108,6 @@
                         <p><b>Temperatur:</b></br>9 Grad</p>
                         <p><b>Wetterstatus:</b></br>bewölkt</p>
                     </div>
-                    <img src="screen-right-2022-05-06-16-16.bmp" alt="Screenshot right view">
                     <div class="heart-symbol-container">
                         <div class="heart-symbol empty right" onclick="toggleHeart('right')"></div>
                     </div>

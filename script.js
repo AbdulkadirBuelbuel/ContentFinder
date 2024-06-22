@@ -116,6 +116,7 @@ document.addEventListener('DOMContentLoaded', function () {
     loadSavedScreenshots();
 });
 
+<<<<<<< HEAD
 // Dropdown-Content anzeigen/verbergen
 document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('dropdownButton').addEventListener('click', function () {
@@ -134,3 +135,49 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+=======
+document.addEventListener('DOMContentLoaded', function () {
+    const imageContainer = document.getElementById('imageContainer');
+    const prevBtn1 = document.getElementById('left-first');
+    const nextBtn1 = document.getElementById('right-first'); 
+
+    let currentIndex = 0; // Index des aktuellen Bildes
+    let images = []; // Array zum Speichern der Bildpfade
+
+    // Funktion zum Abrufen der Bildpfade vom Server
+    async function fetchImages() {
+        try {
+            const response = await fetch('/images');
+            if (!response.ok) {
+                throw new Error('Fehler beim Abrufen der Bilder');
+            }
+            const data = await response.json();
+            images = data.map(img => img.img_path);
+            showImage(currentIndex); // Zeige das erste Bild beim Laden der Seite
+        } catch (error) {
+            console.error('Fehler:', error);
+        }
+    }
+
+    // Funktion zum Anzeigen eines Bildes basierend auf dem Index
+    function showImage(index) {
+        if (index >= 0 && index < images.length) {
+            imageContainer.innerHTML = `<img src="${images[index]}" alt="Screenshot" />`;
+        }
+    }
+
+    // Event Listener für den nächsten und vorherigen Button
+    prevBtn1.addEventListener('click', function () {
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        showImage(currentIndex);
+    });
+
+    nextBtn1.addEventListener('click', function () {
+        currentIndex = (currentIndex + 1) % images.length;
+        showImage(currentIndex);
+    });
+
+    // Initialisierung: Bilder vom Server abrufen
+    fetchImages();
+});
+>>>>>>> 14698b6925b905ccef8f4d12677424594b07ca42
