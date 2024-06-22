@@ -81,6 +81,8 @@ function selectDropdown(element, dropdownType) {
         button = document.querySelector('.dropdown.weather .dropbtn-weather');
     }
     button.textContent = element.textContent;
+    // Verberge den Dropdown-Inhalt
+    document.getElementById('dropdownContent').style.display = 'none';
 }
 
 // Funktion zum Zurücksetzen der Filter
@@ -112,4 +114,23 @@ function loadSavedScreenshots() {
 // Lade die gespeicherten Bilder beim Laden der Seite
 document.addEventListener('DOMContentLoaded', function () {
     loadSavedScreenshots();
+});
+
+// Dropdown-Content anzeigen/verbergen
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('dropdownButton').addEventListener('click', function () {
+        var dropdownContent = document.getElementById('dropdownContent');
+        if (dropdownContent.style.display === 'block') {
+            dropdownContent.style.display = 'none';
+        } else {
+            dropdownContent.style.display = 'block';
+        }
+    });
+
+    var dropdownOptions = document.querySelectorAll('.dropdown-content p');
+    dropdownOptions.forEach(function (option) {
+        option.addEventListener('click', function () {
+            document.getElementById('dropdownContent').style.display = 'none';
+        });
+    });
 });
