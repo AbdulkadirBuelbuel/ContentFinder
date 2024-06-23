@@ -81,6 +81,8 @@ function selectDropdown(element, dropdownType) {
         button = document.querySelector('.dropdown.weather .dropbtn-weather');
     }
     button.textContent = element.textContent;
+    // Verberge den Dropdown-Inhalt
+    document.getElementById('dropdownContent').style.display = 'none';
 }
 
 // Funktion zum Zurücksetzen der Filter
@@ -114,6 +116,26 @@ document.addEventListener('DOMContentLoaded', function () {
     loadSavedScreenshots();
 });
 
+<<<<<<< HEAD
+// Dropdown-Content anzeigen/verbergen
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('dropdownButton').addEventListener('click', function () {
+        var dropdownContent = document.getElementById('dropdownContent');
+        if (dropdownContent.style.display === 'block') {
+            dropdownContent.style.display = 'none';
+        } else {
+            dropdownContent.style.display = 'block';
+        }
+    });
+
+    var dropdownOptions = document.querySelectorAll('.dropdown-content p');
+    dropdownOptions.forEach(function (option) {
+        option.addEventListener('click', function () {
+            document.getElementById('dropdownContent').style.display = 'none';
+        });
+    });
+});
+=======
 document.addEventListener('DOMContentLoaded', function () {
     const imageContainer = document.getElementById('imageContainer');
     const prevBtn1 = document.getElementById('left-first');
@@ -158,3 +180,4 @@ document.addEventListener('DOMContentLoaded', function () {
     // Initialisierung: Bilder vom Server abrufen
     fetchImages();
 });
+>>>>>>> 14698b6925b905ccef8f4d12677424594b07ca42
