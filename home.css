@@ -162,6 +162,12 @@ aside#sidebar {
     background-color: #f1f1f1;
 }
 
+.dropdown-content_location img {
+    margin-right: 10px;
+    width: 50px; /* oder die gewünschte Größe */
+    height: 50px; /* oder die gewünschte Größe */
+}
+
 .show {
     display: block;
 }

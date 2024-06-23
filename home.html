@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="Software, die die Bildschirmfotos auf eine Art und Weise visualisiert, die es ermöglicht, das Nutzerverhalten besser zu verstehen.">
+    <meta name="description" content="Software, die die Bildschirmfotos auf eine Art und Weise visualisiert, die es ermöglicht, das Nutzerverhalten besser zu verstehen.">
     <meta name="keywords" content="content, finder">
     <meta name="author" content="Abdulkadir Bülbül, Adis Talic, Ali Hamid, Fabian Richter">
     <title>Home</title>
@@ -16,7 +14,6 @@
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js" defer></script>
     <script src="script.js" defer></script>
 </head>
-
 <body>
     <header>
         <h1>ContentFinders</h1>
@@ -39,14 +36,13 @@
             </div>
             <div id="expansion">
                 <div class="dropdown location">
-                    <button class="dropbtn-location">Standort wählen</button>
+                    <button class="dropbtn-location">Inhalt</button>
                     <div class="dropdown-content_location">
-                        <p onclick="selectDropdown(this, 'location')">Screenshotseite - Kein Wert</p>
-                        <p onclick="selectDropdown(this, 'location')">Screenshotseite - Stadtteil auswählen</p>
-                        <p onclick="selectDropdown(this, 'location')">Screenshotseite - Startseite</p>
-                        <p onclick="selectDropdown(this, 'location')">Screenshotseite - Ort suchen</p>
-                        <p onclick="selectDropdown(this, 'location')">Screenshotseite - Route berechnen</p>
-                        <p onclick="selectDropdown(this, 'location')">Screenshotseite - Point of Interest</p>
+                        <p onclick="selectDropdown(this, 'location')"><img src="/img/dreieck.png"></p>
+                        <p onclick="selectDropdown(this, 'location')"><img src="/img/handy.png"></p>
+                        <p onclick="selectDropdown(this, 'location')"><img src="/img/map.png"></p>
+                        <p onclick="selectDropdown(this, 'location')"><img src="/img/verbindung.png"></p>
+                        <p onclick="selectDropdown(this, 'location')"><img src="/img/verknüpfung.png"></p>
                     </div>
                 </div>
                 <div class="dropdown temperature">
@@ -83,10 +79,10 @@
             <div id="screenshot">
                 <div class="screenshot-display">
                     <button class="arrow-left" id="left-first">&lt;</button>
-                    <div class="info">
+                    <div class="info" id="left-info">
                         <h2>Left Display</h2>
-                        <p><i>06:11 Uhr</i></p>
-                        <p><b>Screenshotseite:</b></br>Stadtteil auswählen</p>
+                        <p><i id="left-time"></i></p>
+                        <p><b>Inhalt</b></br></p>
                         <p><b>Temperatur:</b></br>6 Grad</p>
                         <p><b>Wetterstatus:</b></br>regnet</p>
                     </div>
@@ -98,13 +94,12 @@
                     </div>
                     <button class="arrow-right" id="right-first">&gt;</button>
                 </div>
-
                 <div class="screenshot-display">
                     <button class="arrow-left">&lt;</button>
-                    <div class="info">
+                    <div class="info" id="right-info">
                         <h2>Right Display</h2>
-                        <p><i>07:51 Uhr</i></p>
-                        <p><b>Screenshotseite:</b></br>Startseite</p>
+                        <p><i id="right-time"></i></p>
+                        <p><b>Inhalt</b></br></p>
                         <p><b>Temperatur:</b></br>9 Grad</p>
                         <p><b>Wetterstatus:</b></br>bewölkt</p>
                     </div>
@@ -113,10 +108,8 @@
                     </div>
                     <button class="arrow-right">&gt;</button>
                 </div>
-
             </div>
         </section>
     </main>
 </body>
-
 </html>
