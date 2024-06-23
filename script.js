@@ -90,6 +90,7 @@ function resetFilters() {
     document.querySelector('.dropdown.location .dropbtn-location').textContent = 'Standort wählen';
     document.querySelector('.dropdown.temperature .dropbtn-temperature').textContent = 'Temperatur wählen';
     document.querySelector('.dropdown.weather .dropbtn-weather').textContent = 'Wetterbedingung wählen';
+    document.getElementById('time').value = '';
 }
 
 // JavaScript für saved.html
@@ -116,30 +117,55 @@ document.addEventListener('DOMContentLoaded', function () {
     loadSavedScreenshots();
 });
 
-<<<<<<< HEAD
 // Dropdown-Content anzeigen/verbergen
-document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById('dropdownButton').addEventListener('click', function () {
-        var dropdownContent = document.getElementById('dropdownContent');
-        if (dropdownContent.style.display === 'block') {
-            dropdownContent.style.display = 'none';
-        } else {
-            dropdownContent.style.display = 'block';
-        }
-    });
+document.addEventListener('DOMContentLoaded', () => {
+    const dropbtn_location = document.querySelectorAll('.dropbtn-location');
+    const dropbtn_temperature = document.querySelectorAll('.dropbtn-temperature');
+    const dropbtn_weather = document.querySelectorAll('.dropbtn-weather');
 
-    var dropdownOptions = document.querySelectorAll('.dropdown-content p');
-    dropdownOptions.forEach(function (option) {
-        option.addEventListener('click', function () {
-            document.getElementById('dropdownContent').style.display = 'none';
+    // Funktion, um alle Dropdowns zu schließen
+    function closeAllDropdowns() {
+        const dropdowns_location = document.querySelectorAll('.dropdown-content_location');
+        const dropdowns_temperature = document.querySelectorAll('.dropdown-content_temperature');
+        const dropdowns_weather = document.querySelectorAll('.dropdown-content_weather');
+
+        dropdowns_location.forEach(dd => dd.classList.remove('show'));
+        dropdowns_temperature.forEach(dd => dd.classList.remove('show'));
+        dropdowns_weather.forEach(dd => dd.classList.remove('show'));
+    }
+
+    // Funktion, um Event-Listener zu Dropdown-Schaltflächen hinzuzufügen
+    function addClickListenerToButtons(buttons) {
+        buttons.forEach(btn => {
+            btn.addEventListener('click', function () {
+                // Schließt alle offenen Dropdowns
+                closeAllDropdowns();
+
+                // Öffnet das aktuelle Dropdown
+                this.nextElementSibling.classList.toggle('show');
+            });
         });
-    });
+    }
+
+    // Event-Listener für Klick auf Dokument, um Dropdowns zu schließen
+    window.onclick = function (event) {
+        if (!event.target.matches('.dropbtn-location') &&
+            !event.target.matches('.dropbtn-temperature') &&
+            !event.target.matches('.dropbtn-weather')) {
+            closeAllDropdowns();
+        }
+    };
+
+    // Event-Listener zu den Dropdown-Schaltflächen hinzufügen
+    addClickListenerToButtons(dropbtn_location);
+    addClickListenerToButtons(dropbtn_temperature);
+    addClickListenerToButtons(dropbtn_weather);
 });
-=======
+
 document.addEventListener('DOMContentLoaded', function () {
     const imageContainer = document.getElementById('imageContainer');
     const prevBtn1 = document.getElementById('left-first');
-    const nextBtn1 = document.getElementById('right-first'); 
+    const nextBtn1 = document.getElementById('right-first');
 
     let currentIndex = 0; // Index des aktuellen Bildes
     let images = []; // Array zum Speichern der Bildpfade
@@ -152,7 +178,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 throw new Error('Fehler beim Abrufen der Bilder');
             }
             const data = await response.json();
-            images = data.map(img =>  img.img_path);
+            images = data.map(img => img.img_path);
             showImage(currentIndex); // Zeige das erste Bild beim Laden der Seite
         } catch (error) {
             console.error('Fehler:', error);
@@ -180,4 +206,3 @@ document.addEventListener('DOMContentLoaded', function () {
     // Initialisierung: Bilder vom Server abrufen
     fetchImages();
 });
->>>>>>> 14698b6925b905ccef8f4d12677424594b07ca42
