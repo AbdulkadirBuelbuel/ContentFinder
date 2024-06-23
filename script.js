@@ -130,7 +130,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 throw new Error('Fehler beim Abrufen der Bilder');
             }
             const data = await response.json();
-            images = data.map(img => img.img_path);
+            images = data.map(img =>  img.img_path);
             showImage(currentIndex); // Zeige das erste Bild beim Laden der Seite
         } catch (error) {
             console.error('Fehler:', error);
