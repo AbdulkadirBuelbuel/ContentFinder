@@ -60,6 +60,82 @@ deleteImagesFromDatabase((err) => {
         insertImagesFromFolder('1_screens_left_map');
     }
 });
+//========================================================================================================================
+// Die Sortierten Bilder in der Datenbank
+// Function to delete all entries from a specified table
+function deleteImagesFromDatabaseTT(tableName, callback) {
+    const query = `DELETE FROM ${tableName}`;
+    connection.query(query, (err, result) => {
+        if (err) {
+            console.error(`Error deleting images from the table ${tableName}:`, err);
+            callback(err);
+        } else {
+            console.log(`All entries from the table ${tableName} have been deleted`);
+            resetAutoIncrementTT(tableName, callback);
+        }
+    });
+}
+
+// Function to reset the auto-increment value of a specified table
+function resetAutoIncrementTT(tableName, callback) {
+    const query = `ALTER TABLE ${tableName} AUTO_INCREMENT = 1`;
+    connection.query(query, (err, result) => {
+        if (err) {
+            console.error(`Error resetting the auto-increment value for table ${tableName}:`, err);
+        } else {
+            console.log(`Auto-increment value of the table ${tableName} has been reset`);
+        }
+        callback(err);
+    });
+}
+
+// Function to insert images from a folder into a specified table
+function insertImagesFromFolderTT(folderPath, tableName) {
+    fs.readdir(folderPath, (err, files) => {
+        if (err) {
+            console.error(`Error reading the folder ${folderPath}:`, err);
+            return;
+        }
+
+        files.forEach((file) => {
+            const imagePath = path.join(folderPath, file);
+            const query = `INSERT INTO ${tableName} (img_path) VALUES (?)`;
+            connection.query(query, [imagePath], (err, result) => {
+                if (err) {
+                    console.error(`Error inserting the image into the table ${tableName}:`, err);
+                    return;
+                }
+                console.log(`Image successfully inserted into table ${tableName} with ID:`, result.insertId);
+            });
+        });
+    });
+}
+
+// Main function to process all folders
+function processFoldersTT(baseFolderPath) {
+    fs.readdir(baseFolderPath, (err, folders) => {
+        if (err) {
+            console.error(`Error reading the base folder ${baseFolderPath}:`, err);
+            return;
+        }
+
+        folders.forEach((folder) => {
+            const folderPath = path.join(baseFolderPath, folder);
+            const tableName = folder.charAt(0).toLowerCase() + folder.slice(1);
+
+            deleteImagesFromDatabaseTT(tableName, (err) => {
+                if (!err) {
+                    insertImagesFromFolderTT(folderPath, tableName);
+                }
+            });
+        });
+    });
+}
+
+// Example call - process all folders in the base folder 'Sortierte_Bilder_new'
+processFoldersTT('Sortierte_Bilder_new');
+
+//========================================================================================================================
 
 const server = http.createServer((req, res) => {
     if (req.url === '/') {
