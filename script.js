@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
         dateClick: function (info) {
             currentDate = new Date(info.dateStr);
             updateDateSpan();
+            fetchImages(); // Fetch images whenever the date is clicked
         }
     });
 
@@ -33,12 +34,14 @@ document.addEventListener('DOMContentLoaded', function () {
         currentDate.setDate(currentDate.getDate() - 1);
         calendar.gotoDate(currentDate);
         updateDateSpan();
+        fetchImages();
     });
 
     document.getElementById('next').addEventListener('click', function () {
         currentDate.setDate(currentDate.getDate() + 1);
         calendar.gotoDate(currentDate);
         updateDateSpan();
+        fetchImages();
     });
 });
 
@@ -168,41 +171,81 @@ document.addEventListener('DOMContentLoaded', function () {
     const nextBtn1 = document.getElementById('right-first');
 
     let currentIndex = 0; // Index des aktuellen Bildes
-    let images = []; // Array zum Speichern der Bildpfade
+    let images = []; // Array zum Speichern der Bilddaten aus JSON
+    let filteredImages = []; // Array zum Speichern der gefilterten Bildpfade
 
-    // Funktion zum Abrufen der Bildpfade vom Server
+    // Function to fetch images
     async function fetchImages() {
         try {
-            const response = await fetch('/images');
+            const response = await fetch('/image_data.json'); // Fetch JSON file
             if (!response.ok) {
                 throw new Error('Fehler beim Abrufen der Bilder');
             }
-            const data = await response.json();
-            images = data.map(img => img.img_path);
-            showImage(currentIndex); // Zeige das erste Bild beim Laden der Seite
+            images = await response.json();
+            console.log('Fetched images:', images); // Log fetched images
+            filterImagesByDate(); // Filter images based on the selected date
         } catch (error) {
             console.error('Fehler:', error);
         }
     }
 
-    // Funktion zum Anzeigen eines Bildes basierend auf dem Index
+    // Function to filter images based on the selected date
+    function filterImagesByDate() {
+        const selectedDateStr = currentDate.toISOString().substring(0, 10);
+        console.log('Selected date:', selectedDateStr); // Log selected date
+        filteredImages = images.filter(img => img.date === selectedDateStr);
+        console.log('Filtered images:', filteredImages); // Log filtered images
+        currentIndex = 0;
+        showImage(currentIndex);
+    }
+
+    // Function to show image based on index
     function showImage(index) {
-        if (index >= 0 && index < images.length) {
-            imageContainer.innerHTML = `<img src="${images[index]}" alt="Screenshot" />`;
+        if (filteredImages.length > 0 && index >= 0 && index < filteredImages.length) {
+            imageContainer.innerHTML = `<img src="${filteredImages[index].path}" alt="Screenshot" />`;
+            console.log('Showing image:', filteredImages[index].path); // Log showing image
+        } else {
+            imageContainer.innerHTML = 'Keine Bilder für das ausgewählte Datum.';
+            console.log('No images for the selected date.'); // Log no images message
         }
     }
 
-    // Event Listener für den nächsten und vorherigen Button
+    // Event Listeners for the next and previous buttons
     prevBtn1.addEventListener('click', function () {
-        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        currentIndex = (currentIndex - 1 + filteredImages.length) % filteredImages.length;
         showImage(currentIndex);
     });
 
     nextBtn1.addEventListener('click', function () {
-        currentIndex = (currentIndex + 1) % images.length;
+        currentIndex = (currentIndex + 1) % filteredImages.length;
         showImage(currentIndex);
     });
 
-    // Initialisierung: Bilder vom Server abrufen
+    // Function to initialize the calendar and attach dateClick event
+    function initializeCalendar() {
+        let calendarEl = document.getElementById('calendar');
+
+        let calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            initialDate: currentDate,
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth'
+            },
+            dateClick: function (info) {
+                currentDate = new Date(info.dateStr);
+                filterImagesByDate(); // Filter images by the clicked date
+            }
+        });
+
+        calendar.render();
+    }
+
+    // Initialize calendar
+    let currentDate = new Date('2022-06'); // Initial date
+    initializeCalendar();
+
+    // Fetch images on page load
     fetchImages();
 });
