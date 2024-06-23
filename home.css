@@ -172,6 +172,11 @@ aside#sidebar {
     display: block;
 }
 
+.menu {
+    width: 8%;
+    height: auto;
+}
+
 #reset-filters {
     width: calc(100% - 2%);
     padding: 5%;

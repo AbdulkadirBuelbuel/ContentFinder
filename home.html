@@ -13,14 +13,13 @@
     <!-- FullCalendar JS -->
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js" defer></script>
     <script src="script.js" defer></script>
+    <script src="function.js" defer></script>
 </head>
 <body>
     <header>
         <h1>ContentFinders</h1>
         <a href="saved.html"><img id="herzsymbol" src="herzsymbol.png" alt="Herzsymbol"></a>
         <img id="filter-symbol" src="filter.png" alt="Filter">
-        <img id="statistics" src="statistics.png" alt="Statistics">
-        <div id="rect"></div>
     </header>
     <main id="home">
         <aside id="sidebar">
@@ -29,20 +28,21 @@
             </div>
             <div id="time-input">
                 <label for="time">Zeit eingeben:</label>
-                <input type="time" id="time" name="time"/>
+                <input type="time" id="time" name="time" />
             </div>
             <div id="filterBTN">
                 <h3>Weitere Filter</h3>
             </div>
             <div id="expansion">
                 <div class="dropdown location">
-                    <button class="dropbtn-location">Inhalt</button>
+                    <button class="dropbtn-location">Menüpunkt wählen</button>
                     <div class="dropdown-content_location">
-                        <p onclick="selectDropdown(this, 'location')"><img src="/img/dreieck.png"></p>
-                        <p onclick="selectDropdown(this, 'location')"><img src="/img/handy.png"></p>
-                        <p onclick="selectDropdown(this, 'location')"><img src="/img/map.png"></p>
-                        <p onclick="selectDropdown(this, 'location')"><img src="/img/verbindung.png"></p>
-                        <p onclick="selectDropdown(this, 'location')"><img src="/img/verknüpfung.png"></p>
+                        <p onclick="selectDropdown(this, 'location')">Screenshotseite - Kein Wert</p>
+                        <p onclick="selectDropdown(this, 'location')">Screenshotseite - Stadtteil auswählen</p>
+                        <p onclick="selectDropdown(this, 'location')">Screenshotseite - Startseite</p>
+                        <p onclick="selectDropdown(this, 'location')">Screenshotseite - Ort suchen</p>
+                        <p onclick="selectDropdown(this, 'location')">Screenshotseite - Route berechnen</p>
+                        <p onclick="selectDropdown(this, 'location')">Screenshotseite - Point of Interest</p>
                     </div>
                 </div>
                 <div class="dropdown temperature">
