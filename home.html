@@ -90,7 +90,7 @@
                         <p><b>Temperatur:</b></br>6 Grad</p>
                         <p><b>Wetterstatus:</b></br>regnet</p>
                     </div>
-                    <div class="row" id="imageContainer">
+                    <div class="row" id="imageContainerLeft">
                         <!-- Bilder werden hier dynamisch eingefügt -->
                     </div>
                     <div class="heart-symbol-container">
@@ -100,7 +100,7 @@
                 </div>
 
                 <div class="screenshot-display">
-                    <button class="arrow-left">&lt;</button>
+                    <button class="arrow-left" id="left-second">&lt;</button>
                     <div class="info">
                         <h2>Right Display</h2>
                         <p><i>07:51 Uhr</i></p>
@@ -108,10 +108,13 @@
                         <p><b>Temperatur:</b></br>9 Grad</p>
                         <p><b>Wetterstatus:</b></br>bewölkt</p>
                     </div>
+                    <div class="row" id="imageContainerRight">
+                        <!-- Bilder werden hier dynamisch eingefügt -->
+                    </div>
                     <div class="heart-symbol-container">
                         <div class="heart-symbol empty right" onclick="toggleHeart('right')"></div>
                     </div>
-                    <button class="arrow-right">&gt;</button>
+                    <button class="arrow-right" id="right-second">&gt;</button>
                 </div>
 
             </div>

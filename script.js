@@ -135,46 +135,61 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 document.addEventListener('DOMContentLoaded', function () {
-    const imageContainer = document.getElementById('imageContainer');
-    const prevBtn1 = document.getElementById('left-first');
-    const nextBtn1 = document.getElementById('right-first'); 
+    // Funktion zum Abrufen und Anzeigen der Bilder
+    function fetchAndDisplayImages(container, prevBtn, nextBtn, side) {
+        let currentIndex = 0;
+        let images = [];
 
-    let currentIndex = 0; // Index des aktuellen Bildes
-    let images = []; // Array zum Speichern der Bildpfade
-
-    // Funktion zum Abrufen der Bildpfade vom Server
-    async function fetchImages() {
-        try {
-            const response = await fetch('/images');
-            if (!response.ok) {
-                throw new Error('Fehler beim Abrufen der Bilder');
+        async function fetchImages() {
+            try {
+                const response = await fetch(`/images?side=${side}`);
+                if (!response.ok) {
+                    throw new Error('Fehler beim Abrufen der Bilder');
+                }
+                const data = await response.json();
+                images = data.map(img => img.img_path);
+                showImage(currentIndex);
+            } catch (error) {
+                console.error('Fehler:', error);
             }
-            const data = await response.json();
-            images = data.map(img =>  img.img_path);
-            showImage(currentIndex); // Zeige das erste Bild beim Laden der Seite
-        } catch (error) {
-            console.error('Fehler:', error);
         }
+
+        function showImage(index) {
+            if (index >= 0 && index < images.length) {
+                container.innerHTML = `<img src="${images[index]}" alt="Screenshot" />`;
+            }
+        }
+
+        prevBtn.addEventListener('click', function () {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            showImage(currentIndex);
+        });
+
+        nextBtn.addEventListener('click', function () {
+            currentIndex = (currentIndex + 1) % images.length;
+            showImage(currentIndex);
+        });
+
+        fetchImages();
     }
 
-    // Funktion zum Anzeigen eines Bildes basierend auf dem Index
-    function showImage(index) {
-        if (index >= 0 && index < images.length) {
-            imageContainer.innerHTML = `<img src="${images[index]}" alt="Screenshot" />`;
-        }
-    }
+    // Konfiguration für den linken Bereich
+    const leftConfig = {
+        container: document.getElementById('imageContainerLeft'),
+        prevBtn: document.getElementById('left-first'),
+        nextBtn: document.getElementById('right-first'),
+        side: 'left'
+    };
 
-    // Event Listener für den nächsten und vorherigen Button
-    prevBtn1.addEventListener('click', function () {
-        currentIndex = (currentIndex - 1 + images.length) % images.length;
-        showImage(currentIndex);
-    });
+    // Konfiguration für den rechten Bereich
+    const rightConfig = {
+        container: document.getElementById('imageContainerRight'),
+        prevBtn: document.getElementById('left-second'),
+        nextBtn: document.getElementById('right-second'),
+        side: 'right'
+    };
 
-    nextBtn1.addEventListener('click', function () {
-        currentIndex = (currentIndex + 1) % images.length;
-        showImage(currentIndex);
-    });
-
-    // Initialisierung: Bilder vom Server abrufen
-    fetchImages();
+    // Initialisierung: Bilder vom Server für beide Bereiche abrufen und anzeigen
+    fetchAndDisplayImages(leftConfig.container, leftConfig.prevBtn, leftConfig.nextBtn, leftConfig.side);
+    fetchAndDisplayImages(rightConfig.container, rightConfig.prevBtn, rightConfig.nextBtn, rightConfig.side);
 });
