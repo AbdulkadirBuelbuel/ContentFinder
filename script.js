@@ -80,10 +80,53 @@ function selectDropdown(element, dropdownType) {
     } else if (dropdownType === 'weather') {
         button = document.querySelector('.dropdown.weather .dropbtn-weather');
     }
-    button.textContent = element.textContent;
+    button.innerHTML = element.innerHTML;
     // Verberge den Dropdown-Inhalt
-    document.getElementById('dropdownContent').style.display = 'none';
+    element.parentElement.style.display = 'none';
 }
+
+// Funktion zum Anzeigen des Dropdown-Menüs
+function showDropdown(dropdownType) {
+    let dropdownContent;
+    if (dropdownType === 'location') {
+        dropdownContent = document.querySelector('.dropdown-content_location');
+    } else if (dropdownType === 'temperature') {
+        dropdownContent = document.querySelector('.dropdown-content_temperature');
+    } else if (dropdownType === 'weather') {
+        dropdownContent = document.querySelector('.dropdown-content_weather');
+    }
+    dropdownContent.style.display = 'block'; // Zeige den Dropdown-Inhalt an
+}
+
+// Event-Listener für die Dropdown-Buttons
+document.querySelector('.dropbtn-location').addEventListener('click', function () {
+    showDropdown('location');
+});
+
+document.querySelector('.dropbtn-temperature').addEventListener('click', function () {
+    showDropdown('temperature');
+});
+
+document.querySelector('.dropbtn-weather').addEventListener('click', function () {
+    showDropdown('weather');
+});
+
+// Schließe das Dropdown-Menü, wenn außerhalb geklickt wird
+document.addEventListener('click', function (event) {
+    let locationDropdown = document.querySelector('.dropdown-content_location');
+    let temperatureDropdown = document.querySelector('.dropdown-content_temperature');
+    let weatherDropdown = document.querySelector('.dropdown-content_weather');
+
+    if (!event.target.matches('.dropbtn-location') && !locationDropdown.contains(event.target)) {
+        locationDropdown.style.display = 'none';
+    }
+    if (!event.target.matches('.dropbtn-temperature') && !temperatureDropdown.contains(event.target)) {
+        temperatureDropdown.style.display = 'none';
+    }
+    if (!event.target.matches('.dropbtn-weather') && !weatherDropdown.contains(event.target)) {
+        weatherDropdown.style.display = 'none';
+    }
+});
 
 // Funktion zum Zurücksetzen der Filter
 function resetFilters() {
