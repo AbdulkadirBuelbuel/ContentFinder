@@ -163,15 +163,20 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 document.addEventListener('DOMContentLoaded', function () {
-    const imageContainer = document.getElementById('imageContainer');
+    const imageContainerLeft = document.getElementById('imageContainerLeft');
+    const imageContainerRight = document.getElementById('imageContainerRight');
     const prevBtn1 = document.getElementById('left-first');
     const nextBtn1 = document.getElementById('right-first');
+    const prevBtn2 = document.getElementById('left-second');
+    const nextBtn2 = document.getElementById('right-second');
     const timeInput = document.getElementById('time');
     const leftInfo = document.getElementById('left-info');
     const rightInfo = document.getElementById('right-info');
     const dateSpan = document.getElementById('date-span');
 
     let currentIndex = 0; // Index des aktuellen Bildes
+    let currentIndex2 = 0; // Index des aktuellen Bildes
+
     let images = []; // Array zum Speichern der Bilddaten aus JSON
     let filteredImages = []; // Array zum Speichern der gefilterten Bildpfade
     let currentDate = new Date('2022-06'); // Initial date
@@ -179,7 +184,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Function to fetch images
     async function fetchImages() {
         try {
-            const response = await fetch('/image_data.json'); // Fetch JSON file
+            const response = await fetch('/all_image_data.json'); // Fetch JSON file
             if (!response.ok) {
                 throw new Error('Fehler beim Abrufen der Bilder');
             }
@@ -187,65 +192,136 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log('Response text:', text); // Log the raw response text
             images = JSON.parse(text);
             console.log('Fetched images:', images); // Log fetched images
-            filterImagesByDate(); // Filter images based on the selected date
+            filterImagesByDateLeft(); // Filter images based on the selected date
+            filterImagesByDateRight();
         } catch (error) {
             console.error('Fehler:', error);
         }
     }
 
     // Function to filter images based on the selected date
-    function filterImagesByDate() {
-        const selectedDateStr = currentDate.toISOString().substring(0, 10);
+    function filterImagesByDateLeft() {
+        const selectedDateStr = currentDate.toISOString().substring(0, 10); // Beispiel: '2022-06-01'
         console.log('Selected date:', selectedDateStr); // Log selected date
+    
+        // Filter images based on the selected date
         filteredImages = images.filter(img => img.date === selectedDateStr);
         console.log('Filtered images by date:', filteredImages); // Log filtered images
-        filterImagesByTime(); // Proceed to filter by date and time
-    }
+    
+        // Check if there are filtered images to display
+        if (filteredImages.length > 0) {
+            currentIndex1 = 0;
+     
+            showImageLeft(currentIndex1) 
 
-    // Function to filter images based on selected date and time
-    function filterImagesByTime() {
-        const selectedTime = timeInput.value; // Get selected time from input
-        console.log('Selected time:', selectedTime); // Log selected time
-        if (selectedTime) {
-            filteredImages = filteredImages.filter(img => img.time === selectedTime);
-            console.log('Filtered images by date and time:', filteredImages); // Log filtered images by date and time
-        }
-        currentIndex = 0;
-        showImage(currentIndex);
-        timeInput.value = ''; // Reset time input
-    }
-
-    // Function to show image based on index
-    function showImage(index) {
-        if (filteredImages.length > 0 && index >= 0 && index < filteredImages.length) {
-            const img = filteredImages[index];
-            imageContainer.innerHTML = `<img src="${img.path}" alt="Screenshot" />`;
-            console.log('Showing image:', img.path); // Log showing image
-            updateImageInfo(img); // Update image information
         } else {
-            imageContainer.innerHTML = 'Keine Bilder für das ausgewählte Datum und Zeit.';
-            console.log('No images for the selected date and time.'); // Log no images message
+            // Handle case when no images match the selected date
+            imageContainerLeft.innerHTML = 'Keine Bilder für das ausgewählte Datum gefunden.';
+            console.log('No images for the selected date.');
         }
     }
 
-    // Function to update image information
-    function updateImageInfo(img) {
-        leftInfo.querySelector('i').textContent = img.time;
-        leftInfo.querySelector('b').textContent = img.path.split('/').pop();
-        // Update other info if available in JSON
-        console.log('Updated image info:', img); // Log updated image info
-    }
+   /* function filterImagesByDateRight() {
+        const selectedDateStr2 = currentDate.toISOString().substring(0, 10); // Beispiel: '2022-06-01'
+        console.log('Selected date:', selectedDateStr); // Log selected date
+    
+        // Filter images based on the selected date
+        filteredImages = images.filter(img => img.date === selectedDateStr2);
+        console.log('Filtered images by date:', filteredImages); // Log filtered images
+    
+        // Check if there are filtered images to display
+        if (filteredImages.length > 0) {
+            currentIndex2 = 0;
+            showImageRight(currentIndex2)
+        } else {
+            // Handle case when no images match the selected date
+            imageContainerRight.innerHTML = 'Keine Bilder für das ausgewählte Datum gefunden.';
+            console.log('No images for the selected date.');
+        }
+    }*/
 
-    // Event Listeners for the next and previous buttons
-    prevBtn1.addEventListener('click', function () {
-        currentIndex = (currentIndex - 1 + filteredImages.length) % filteredImages.length;
-        showImage(currentIndex);
-    });
 
-    nextBtn1.addEventListener('click', function () {
-        currentIndex = (currentIndex + 1) % filteredImages.length;
-        showImage(currentIndex);
-    });
+        function showImageLeft(index) {
+            // Filtern der Bilder nach Dateinamen, die "Left" enthalten
+            const leftFilteredImages = filteredImages.filter(img => img.filename.toLowerCase().includes('left'));
+        
+            if (leftFilteredImages.length > 0 && index >= 0 && index < leftFilteredImages.length) {
+                const img = leftFilteredImages[index];
+                imageContainerLeft.innerHTML = `<img src="${img.path}" alt="Screenshot" />`;
+                console.log('Showing left image:', img.path); // Log showing image
+                updateImageInfo(img, leftInfo); // Update image information
+            } else {
+                imageContainerLeft.innerHTML = 'Keine passenden linken Bilder gefunden.';
+                console.log('No left images matching the criteria.'); // Log no images message
+            }
+        }
+        
+        function showImageRight(index) {
+            // Filtern der Bilder nach Dateinamen, die "Right" enthalten
+            const rightFilteredImages = filteredImages.filter(img => img.filename.toLowerCase().includes('right'));
+        
+            if (rightFilteredImages.length > 0 && index >= 0 && index < rightFilteredImages.length) {
+                const img = rightFilteredImages[index];
+                imageContainerRight.innerHTML = `<img src="${img.path}" alt="Screenshot" />`;
+                console.log('Showing right image:', img.path); // Log showing image
+                updateImageInfo(img, rightInfo); // Update image information
+            } else {
+                imageContainerRight.innerHTML = 'Keine passenden rechten Bilder gefunden.';
+                console.log('No right images matching the criteria.'); // Log no images message
+            }
+        }
+        
+        function updateImageInfo(img, infoContainer) {
+            infoContainer.querySelector('i').textContent = img.time;
+            infoContainer.querySelector('b').textContent = img.filename.split('/').pop();
+            // Update other info if available in JSON
+            console.log('Updated image info:', img); // Log updated image info
+        }
+        
+        // Event Listeners for the next and previous buttons for left images
+        prevBtn1.addEventListener('click', function () {
+            currentIndex = (currentIndex - 1 + filteredImages.length) % filteredImages.length;
+            showImageLeft(currentIndex);
+        });
+        
+        nextBtn1.addEventListener('click', function () {
+            currentIndex = (currentIndex + 1) % filteredImages.length;
+            showImageLeft(currentIndex);
+        });
+        
+        // Event Listeners for the next and previous buttons for right images
+        prevBtn2.addEventListener('click', function () {
+            currentIndex = (currentIndex - 1 + filteredImages.length) % filteredImages.length;
+            showImageRight(currentIndex);
+        });
+        
+        nextBtn2.addEventListener('click', function () {
+            currentIndex = (currentIndex + 1) % filteredImages.length;
+            showImageRight(currentIndex);
+        });
+        
+        // Fetch images and filter by date for both left and right containers
+        function filterImagesByDateLeft() {
+            const selectedDateStr = currentDate.toISOString().substring(0, 10); // Beispiel: '2022-06-01'
+            console.log('Selected date:', selectedDateStr); // Log selected date
+            
+            // Filter images based on the selected date
+            filteredImages = images.filter(img => img.date === selectedDateStr);
+            console.log('Filtered images by date:', filteredImages); // Log filtered images
+            
+            // Check if there are filtered images to display
+            if (filteredImages.length > 0) {
+                currentIndex = 0;
+                showImageLeft(currentIndex);
+                showImageRight(currentIndex); // Display right images as well
+            } else {
+                // Handle case when no images match the selected date
+                imageContainerLeft.innerHTML = 'Keine Bilder für das ausgewählte Datum gefunden.';
+                imageContainerRight.innerHTML = 'Keine Bilder für das ausgewählte Datum gefunden.';
+                console.log('No images for the selected date.');
+            }
+        }
+        
 
     // Event Listener for the time input to trigger filtering
     timeInput.addEventListener('change', function () {
@@ -266,7 +342,8 @@ document.addEventListener('DOMContentLoaded', function () {
             },
             dateClick: function (info) {
                 currentDate = new Date(info.dateStr);
-                filterImagesByDate(); // Filter images by the clicked date
+                filterImagesByDateLeft() // Filter images by the clicked date
+                filterImagesByDateRight();
                 dateSpan.textContent = info.dateStr; // Update date display
             }
         });
@@ -281,7 +358,7 @@ document.addEventListener('DOMContentLoaded', function () {
     fetchImages();
 });
 
-document.addEventListener('DOMContentLoaded', function () {
+/*document.addEventListener('DOMContentLoaded', function () {
     // Funktion zum Abrufen und Anzeigen der Bilder
     function fetchAndDisplayImages(container, prevBtn, nextBtn, side) {
         let currentIndex = 0;
@@ -295,13 +372,40 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
                 const data = await response.json();
                 images = data.map(img => img.img_path);
-                showImage(currentIndex);
+                showImageLeft(currentIndex);
+                showImageRight(currentIndex);
             } catch (error) {
                 console.error('Fehler:', error);
             }
         }
 
-        function showImage(index) {
+
+        function fetchAndDisplayImagesRight(container, prevBtn, nextBtn, side) {
+            let currentIndex = 0;
+            let images = [];
+    
+            async function fetchImages() {
+                try {
+                    const response = await fetch(`/images?side=${side}`);
+                    if (!response.ok) {
+                        throw new Error('Fehler beim Abrufen der Bilder');
+                    }
+                    const data = await response.json();
+                    images = data.map(img => img.img_path);
+                    showImageLeft(currentIndex);
+                    showImageRight(currentIndex);
+                } catch (error) {
+                    console.error('Fehler:', error);
+                }
+            }
+
+        function showImageLeft(index) {
+            if (index >= 0 && index < images.length) {
+                container.innerHTML = `<img src="${images[index]}" alt="Screenshot" />`;
+            }
+        }
+
+        function showImageRight(index) {
             if (index >= 0 && index < images.length) {
                 container.innerHTML = `<img src="${images[index]}" alt="Screenshot" />`;
             }
@@ -315,12 +419,13 @@ document.addEventListener('DOMContentLoaded', function () {
         nextBtn.addEventListener('click', function () {
             currentIndex = (currentIndex + 1) % images.length;
             showImage(currentIndex);
-        });
+        });*/
 
         fetchImages();
-    }
-
+    /*}
+    }*/
     // Konfiguration für den linken Bereich
+
     const leftConfig = {
         container: document.getElementById('imageContainerLeft'),
         prevBtn: document.getElementById('left-first'),
@@ -337,6 +442,7 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     // Initialisierung: Bilder vom Server für beide Bereiche abrufen und anzeigen
-    fetchAndDisplayImages(leftConfig.container, leftConfig.prevBtn, leftConfig.nextBtn, leftConfig.side);
-    fetchAndDisplayImages(rightConfig.container, rightConfig.prevBtn, rightConfig.nextBtn, rightConfig.side);
-});
+    fetchAndDisplayImages(leftConfig.container, leftConfig.prevBtn1, leftConfig.nextBtn1, leftConfig.side);
+    fetchAndDisplayImages(rightConfig.container, rightConfig.prevBtn2, rightConfig.nextBtn2, rightConfig.side);
+
+
