@@ -1,5 +1,6 @@
 import os
 import json
+import re
 
 # Funktion, um das Datum aus dem Dateinamen zu extrahieren
 def extract_date(filename, is_right):
@@ -25,10 +26,11 @@ def extract_temperature(filename):
 def extract_weather_conditions(filename):
     return filename[34:]
 
-# Funktion, um die Ordnernummer aus dem Ordnernamen zu extrahieren
-def extract_folder_number(folder_path):
+# Funktion, um die letzte Ziffer aus dem Ordnernamen zu extrahieren
+def extract_last_digit(folder_path):
     folder_name = os.path.basename(folder_path)
-    return folder_name.split('_')[-1]
+    match = re.search(r'\d(?=\D*$)', folder_name)
+    return match.group(0) if match else None
 
 # Liste der Ordnerpfade für "Right"
 right_folder_paths = [
@@ -64,8 +66,8 @@ all_image_data = []
 # Funktion, um die Ordner zu durchlaufen und die Bildinformationen zu sammeln
 def process_folders(folder_paths, is_right):
     for folder_path in folder_paths:
-        # Extrahiere die Ordnernummer
-        folder_number = extract_folder_number(folder_path)
+        # Extrahiere die letzte Ziffer im Ordnernamen
+        folder_number = extract_last_digit(folder_path)
 
         # Liste für die Bildinformationen im aktuellen Ordner
         image_data = []

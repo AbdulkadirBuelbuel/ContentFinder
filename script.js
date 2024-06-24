@@ -213,167 +213,131 @@ document.addEventListener('DOMContentLoaded', function () {
     const prevBtn2 = document.getElementById('left-second');
     const nextBtn2 = document.getElementById('right-second');
     const timeInput = document.getElementById('time');
-    const leftInfo = document.getElementById('left-info');
-    const rightInfo = document.getElementById('right-info');
     const dateSpan = document.getElementById('date-span');
 
-    let currentIndex = 0; // Index des aktuellen Bildes
-    let currentIndex2 = 0; // Index des aktuellen Bildes
+    let currentIndex = 0;
+    let currentIndex2 = 0;
 
-    let images = []; // Array zum Speichern der Bilddaten aus JSON
-    let filteredImages = []; // Array zum Speichern der gefilterten Bildpfade
-    let filteredImages2 =[];
-    let currentDate = new Date('2022-06'); // Initial date
+    let images = [];
+    let filteredImages = [];
+    let currentDate = new Date('2022-06');
 
-    // Function to fetch images
-    async function fetchImages1() {
+    async function fetchImages() {
         try {
-            const response = await fetch('/all_image_data.json'); // Fetch JSON file
+            const response = await fetch('/all_image_data.json');
             if (!response.ok) {
                 throw new Error('Fehler beim Abrufen der Bilder');
             }
             const text = await response.text();
-            console.log('Response text:', text); // Log the raw response text
             images = JSON.parse(text);
-            console.log('Fetched images:', images); // Log fetched images
-             
-            filterImagesByDate2();
-            filterImagesByDate(); // Filter images based on the selected date
-           
-         
+
+            filterImagesByDate();
         } catch (error) {
             console.error('Fehler:', error);
         }
     }
 
-    // Function to filter images based on the selected date
+    function showImageLeft(index) {
+        const leftFilteredImages = filteredImages.filter(img => img.filename.toLowerCase().includes('left'));
+        if (leftFilteredImages.length > 0 && index >= 0 && index < leftFilteredImages.length) {
+            const img = leftFilteredImages[index];
+            imageContainerLeft.innerHTML = `<img src="${img.path}" alt="Screenshot" />`;
+        } else {
+            imageContainerLeft.innerHTML = 'Keine passenden linken Bilder gefunden.';
+        }
+    }
 
+    
+    function showImageRight(index) {
+        const rightFilteredImages = filteredImages.filter(img => img.filename.toLowerCase().includes('right'));
+        if (rightFilteredImages.length > 0 && index >= 0 && index < rightFilteredImages.length) {
+            const img = rightFilteredImages[index];
+            imageContainerRight.innerHTML = `<img src="${img.path}" alt="Screenshot" />`;
+        } else {
+            imageContainerRight.innerHTML = 'Keine passenden rechten Bilder gefunden.';
+        }
+    }
 
-        function showImageLeft(index) {
-            // Filtern der Bilder nach Dateinamen, die "Left" enthalten
-            const leftFilteredImages = filteredImages.filter(img => img.filename.toLowerCase().includes('left'));
-        
-            if (leftFilteredImages.length > 0 && index >= 0 && index < leftFilteredImages.length) {
-                const img = leftFilteredImages[index];
-                imageContainerLeft.innerHTML = `<img src="${img.path}" alt="Screenshot" />`;
-                console.log('Showing left image:', img.path); // Log showing image
-              
-            } else {
-                imageContainerLeft.innerHTML = 'Keine passenden linken Bilder gefunden.';
-                console.log('No left images matching the criteria.'); // Log no images message
-            }
-        }
-        
-        function showImageRight(index) {
-            // Filtern der Bilder nach Dateinamen, die "Right" enthalten
-            const rightFilteredImages = filteredImages.filter(img => img.filename.toLowerCase().includes('right'));
-        
-            if (rightFilteredImages.length > 0 && index >= 0 && index < rightFilteredImages.length) {
-                const img = rightFilteredImages[index];
-                imageContainerRight.innerHTML = `<img src="${img.path}" alt="Screenshot" />`;
-                console.log('Showing right image:', img.path); // Log showing image
-              //  updateImageInfo(img, rightInfo); // Update image information
-            } else {
-                imageContainerRight.innerHTML = 'Keine passenden rechten3 Bilder gefunden.';
-                console.log('No right images matching the criteria.'); // Log no images message
-            }
-        }
-        
-        function updateImageInfo(img, infoContainer) {
-            infoContainer.querySelector('i').textContent = img.time;
-            infoContainer.querySelector('b').textContent = img.filename.split('/').pop();
-            // Update other info if available in JSON
-            console.log('Updated image info:', img); // Log updated image info
-        }
-        
-        // Event Listeners for the next and previous buttons for left images
-        prevBtn1.addEventListener('click', function () {
-            currentIndex = (currentIndex - 1 + filteredImages.length) % filteredImages.length;
-            showImageLeft(currentIndex);
-           // Display right images as well
-        });
-        
-        nextBtn1.addEventListener('click', function () {
-            currentIndex = (currentIndex + 1) % filteredImages.length;
-            showImageLeft(currentIndex);
-           // Display right images as well
-        });
-        
-        // Event Listeners for the next and previous buttons for right images
-        prevBtn2.addEventListener('click', function () {
-            currentIndex = (currentIndex - 1 + filteredImages.length) % filteredImages.length;
-           
-            showImageRight(currentIndex); // Display right images as well
-        });
-        
-        nextBtn2.addEventListener('click', function () {
-            currentIndex = (currentIndex + 1) % filteredImages.length;
-            
-            showImageRight(currentIndex); // Display right images as well
-        });
-        
-        // Fetch images and filter by date for both left and right containers
-        function filterImagesByDate() {
-            const selectedDateStr = currentDate.toISOString().substring(0, 10); // Beispiel: '2022-06-01'
-            console.log('Selected date:', selectedDateStr); // Log selected date
-            
-            // Filter images based on the selected date
-            filteredImages = images.filter(img => img.date === selectedDateStr);
-            console.log('Filtered images by date:', filteredImages); // Log filtered images
-            
-            // Check if there are filtered images to display
-            if (filteredImages.length > 0) {
-                currentIndex = 0;
-                filterImagesByTime();
-                
-                 // Display right images as well
-            } else {
-                // Handle case when no images match the selected date
-               
-                imageContainerRight.innerHTML = 'Keine Bilder für das ausgewählte Datum gefunden.';
-                console.log('No images for the selected date.');
-            }
-        }
-        function filterImagesByDate2() {
-            const selectedDateStr = currentDate.toISOString().substring(0, 10); // Beispiel: '2022-06-01'
-            console.log('Selected date:', selectedDateStr); // Log selected date
-            
-            // Filter images based on the selected date
-            filteredImages2 = images.filter(img => img.date === selectedDateStr);
-            console.log('Filtered images by date:', filteredImages2); // Log filtered images
-            
-            // Check if there are filtered images to display
-  
-                currentIndex = 0;
-                
-                
-                 // Display right images as well
-                 filterImagesByTime();
-        }
-
-        function filterImagesByTime() {
-            const selectedTime = timeInput.value; // Get selected time from input
-            console.log('Selected time:', selectedTime); // Log selected time
-            if (selectedTime) {
-                filteredImages = filteredImages.filter(img => img.time === selectedTime);
-                console.log('Filtered images by date and time:', filteredImages); // Log filtered images by date and time
-            }
+    function filterImagesByDate() {
+        const selectedDateStr = currentDate.toISOString().substring(0, 10);
+        filteredImages = images.filter(img => img.date === selectedDateStr);
+        if (filteredImages.length > 0) {
             currentIndex = 0;
-            showImageLeft(currentIndex);
-            showImageRight(currentIndex);
-            timeInput.value = ''; // Reset time input
+            filterImagesByTime();
+        } else {
+            imageContainerRight.innerHTML = 'Keine Bilder für das ausgewählte Datum gefunden.';
         }
+    }
+
+    function filterImagesByTime() {
+        const selectedTime = timeInput.value;
+        if (selectedTime) {
+            filteredImages = filteredImages.filter(img => img.time === selectedTime);
+        }
+        currentIndex = 0;
+        showImageLeft(currentIndex);
+        showImageRight(currentIndex);
+    }
+
+    function filterImagesByLocation(locationId) {
+        filteredImages = images.filter(img => img.folder_number === locationId);
+        currentIndex = 0;
+        showImageLeft(currentIndex);
+        showImageRight(currentIndex);
+    }
+
+    function filterImagesByTemperature(temperature) {
+        filteredImages = images.filter(img => img.temperature === temperature);
+        currentIndex = 0;
+        showImageLeft(currentIndex);
+        showImageRight(currentIndex);
+    }
+
+    function filterImagesByWeather(weather) {
+        filteredImages = images.filter(img => img.weather_conditions === weather);
+        currentIndex = 0;
+        showImageLeft(currentIndex);
+        showImageRight(currentIndex);
+    }
+
+    function selectDropdown(element, dropdownType) {
+        const selectedId = element.id;
+        if (dropdownType === 'location') {
+            filterImagesByLocation(selectedId);
+        } else if (dropdownType === 'temperature') {
+            filterImagesByTemperature(element.textContent);
+        } else if (dropdownType === 'weather') {
+            filterImagesByWeather(element.textContent);
+        }
+    }
     
 
-    // Event Listener for the time input to trigger filtering
+    prevBtn1.addEventListener('click', function () {
+        currentIndex = (currentIndex - 1 + filteredImages.length) % filteredImages.length;
+        showImageLeft(currentIndex);
+    });
+
+    nextBtn1.addEventListener('click', function () {
+        currentIndex = (currentIndex + 1) % filteredImages.length;
+        showImageLeft(currentIndex);
+    });
+
+    prevBtn2.addEventListener('click', function () {
+        currentIndex = (currentIndex - 1 + filteredImages.length) % filteredImages.length;
+        showImageRight(currentIndex);
+    });
+
+    nextBtn2.addEventListener('click', function () {
+        currentIndex = (currentIndex + 1) % filteredImages.length;
+        showImageRight(currentIndex);
+    });
+
     timeInput.addEventListener('change', function () {
         filterImagesByTime();
     });
 
-    // Function to initialize the calendar and attach dateClick event
     function initializeCalendar() {
         let calendarEl = document.getElementById('calendar');
-
         let calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'dayGridMonth',
             initialDate: currentDate,
@@ -384,19 +348,63 @@ document.addEventListener('DOMContentLoaded', function () {
             },
             dateClick: function (info) {
                 currentDate = new Date(info.dateStr);
-                filterImagesByDate() // Filter images by the clicked date
-                filterImagesByDateRight();
-                dateSpan.textContent = info.dateStr; // Update date display
+                filterImagesByDate();
+                dateSpan.textContent = info.dateStr;
             }
         });
-
         calendar.render();
     }
 
-    // Initialize calendar
     initializeCalendar();
+    fetchImages();
+});
 
-    // Fetch images on page load
-    fetchImages1();
-    fetchImages2();
-})
+// Dropdown-Event-Listener hinzufügen
+document.querySelector('.dropbtn-location').addEventListener('click', function () {
+    showDropdown('location');
+});
+
+document.querySelector('.dropbtn-temperature').addEventListener('click', function () {
+    showDropdown('temperature');
+});
+
+document.querySelector('.dropbtn-weather').addEventListener('click', function () {
+    showDropdown('weather');
+});
+
+function showDropdown(dropdownType) {
+    let dropdownContent;
+    if (dropdownType === 'location') {
+        dropdownContent = document.querySelector('.dropdown-content_location');
+    } else if (dropdownType === 'temperature') {
+        dropdownContent = document.querySelector('.dropdown-content_temperature');
+    } else if (dropdownType === 'weather') {
+        dropdownContent = document.querySelector('.dropdown-content_weather');
+    }
+    dropdownContent.style.display = 'block'; // Zeige den Dropdown-Inhalt an
+}
+
+// Schließe das Dropdown-Menü, wenn außerhalb geklickt wird
+document.addEventListener('click', function (event) {
+    let locationDropdown = document.querySelector('.dropdown-content_location');
+    let temperatureDropdown = document.querySelector('.dropdown-content_temperature');
+    let weatherDropdown = document.querySelector('.dropdown-content_weather');
+
+    if (!event.target.matches('.dropbtn-location') && !locationDropdown.contains(event.target)) {
+        locationDropdown.style.display = 'none';
+    }
+    if (!event.target.matches('.dropbtn-temperature') && !temperatureDropdown.contains(event.target)) {
+        temperatureDropdown.style.display = 'none';
+    }
+    if (!event.target.matches('.dropbtn-weather') && !weatherDropdown.contains(event.target)) {
+        weatherDropdown.style.display = 'none';
+    }
+});
+
+// Funktion zum Zurücksetzen der Filter
+function resetFilters() {
+    document.querySelector('.dropdown.location .dropbtn-location').textContent = 'Standort wählen';
+    document.querySelector('.dropdown.temperature .dropbtn-temperature').textContent = 'Temperatur wählen';
+    document.querySelector('.dropdown.weather .dropbtn-weather').textContent = 'Wetterbedingung wählen';
+    document.getElementById('time').value = '';
+}

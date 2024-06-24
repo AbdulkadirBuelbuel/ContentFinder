@@ -14,7 +14,11 @@
     <link rel="stylesheet" href="home.css" type="text/css">
     <!-- FullCalendar JS -->
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js" defer></script>
+    <!-- Custom JavaScript -->
     <script src="script.js" defer></script>
+    <style>
+
+    </style>
 </head>
 
 <body>
@@ -38,42 +42,37 @@
             </div>
             <div id="expansion">
                 <div class="dropdown location">
-                    <button class="dropbtn-location">Standort wählen</button>
-                    <div class="dropdown-content_location">
-                        <p onclick="selectDropdown(this, 'location')" id="1">Screenshotseite - <img class="menu"
-                                src="menu-icons/map.png" alt="Bild1/"></p>
-                        <p onclick="selectDropdown(this, 'location')" id="2">Screenshotseite - <img class="menu"
-                                src="menu-icons/linegraph.png" alt="Bild2/"></p>
-                        <p onclick="selectDropdown(this, 'location')" id="3">Screenshotseite - <img class="menu"
-                                src="menu-icons/notification.png" alt="Bild3/"></p>
-                        <p onclick="selectDropdown(this, 'location')" id="4">Screenshotseite - <img class="menu"
-                                src="menu-icons/route.png" alt="Bild4/"></p>
-                        <p onclick="selectDropdown(this, 'location')" id="5">Screenshotseite - <img class="menu"
-                                src="menu-icons/connection.png" alt="Bild5/"></p>
-                        <p onclick="selectDropdown(this, 'location')" id="6">Screenshotseite - <img class="menu"
-                                src="menu-icons/language.png" alt="Bild6/"></p>
+                    <button class="dropbtn-location" onclick="toggleDropdown('dropdown-content_location')">Standort wählen</button>
+                    <div class="dropdown-content dropdown-content_location" id="dropdown-content_location">
+                        <p onclick="selectDropdown(this, 'location', '1')" id="1">Screenshotseite - <img class="menu" src="menu-icons/map.png" alt="Bild1/"></p>
+                        <p onclick="selectDropdown(this, 'location', '2')" id="2">Screenshotseite - <img class="menu" src="menu-icons/linegraph.png" alt="Bild2/"></p>
+                        <p onclick="selectDropdown(this, 'location', '3')" id="3">Screenshotseite - <img class="menu" src="menu-icons/notification.png" alt="Bild3/"></p>
+                        <p onclick="selectDropdown(this, 'location', '4')" id="4">Screenshotseite - <img class="menu" src="menu-icons/route.png" alt="Bild4/"></p>
+                        <p onclick="selectDropdown(this, 'location', '5')" id="5">Screenshotseite - <img class="menu" src="menu-icons/connection.png" alt="Bild5/"></p>
+                        <p onclick="selectDropdown(this, 'location', '6')" id="">Screenshotseite - <img class="menu" src="menu-icons/language.png" alt="Bild6/"></p>
                     </div>
                 </div>
+                
                 <div class="dropdown temperature">
-                    <button class="dropbtn-temperature">Temperatur wählen</button>
-                    <div class="dropdown-content_temperature">
-                        <p onclick="selectDropdown(this, 'temperature')">Temperatur: Kein Wert</p>
-                        <p onclick="selectDropdown(this, 'temperature')">Temperatur: -10 - 0 Grad</p>
-                        <p onclick="selectDropdown(this, 'temperature')">Temperatur: 0 - 10 Grad</p>
-                        <p onclick="selectDropdown(this, 'temperature')">Temperatur: 10 - 20 Grad</p>
-                        <p onclick="selectDropdown(this, 'temperature')">Temperatur: 20 - 30 Grad</p>
-                        <p onclick="selectDropdown(this, 'temperature')">Temperatur: 30- 40 Grad</p>
+                    <button class="dropbtn-temperature" onclick="toggleDropdown('dropdown-content_temperature')">Temperatur wählen</button>
+                    <div class="dropdown-content dropdown-content_temperature" id="dropdown-content_temperature">
+                        <p onclick="selectDropdown(this, 'temperature', 'Kein Wert')">Temperatur: Kein Wert</p>
+                        <p onclick="selectDropdown(this, 'temperature', '-10 - 0 Grad')">Temperatur: -10 - 0 Grad</p>
+                        <p onclick="selectDropdown(this, 'temperature', '0 - 10 Grad')">Temperatur: 0 - 10 Grad</p>
+                        <p onclick="selectDropdown(this, 'temperature', '10 - 20 Grad')">Temperatur: 10 - 20 Grad</p>
+                        <p onclick="selectDropdown(this, 'temperature', '20 - 30 Grad')">Temperatur: 20 - 30 Grad</p>
+                        <p onclick="selectDropdown(this, 'temperature', '30 - 40 Grad')">Temperatur: 30 - 40 Grad</p>
                     </div>
                 </div>
                 <div class="dropdown weather">
-                    <button class="dropbtn-weather">Wetterbedingung wählen</button>
-                    <div class="dropdown-content_weather">
-                        <p onclick="selectDropdown(this, 'weather')">Wetterstatus: Kein Wert</p>
-                        <p onclick="selectDropdown(this, 'weather')">Wetterstatus: bewölkt</p>
-                        <p onclick="selectDropdown(this, 'weather')">Wetterstatus: sonnig</p>
-                        <p onclick="selectDropdown(this, 'weather')">Wetterstatus: regnet</p>
-                        <p onclick="selectDropdown(this, 'weather')">Wetterstatus: windig</p>
-                        <p onclick="selectDropdown(this, 'weather')">Wetterstatus: schneit</p>
+                    <button class="dropbtn-weather" onclick="toggleDropdown('dropdown-content_weather')">Wetterbedingung wählen</button>
+                    <div class="dropdown-content dropdown-content_weather" id="dropdown-content_weather">
+                        <p onclick="selectDropdown(this, 'weather', 'Kein Wert')">Wetterstatus: Kein Wert</p>
+                        <p onclick="selectDropdown(this, 'weather', 'bewölkt')">Wetterstatus: bewölkt</p>
+                        <p onclick="selectDropdown(this, 'weather', 'sonnig')">Wetterstatus: sonnig</p>
+                        <p onclick="selectDropdown(this, 'weather', 'regnet')">Wetterstatus: regnet</p>
+                        <p onclick="selectDropdown(this, 'weather', 'windig')">Wetterstatus: windig</p>
+                        <p onclick="selectDropdown(this, 'weather', 'schneit')">Wetterstatus: schneit</p>
                     </div>
                 </div>
                 <button id="reset-filters" onclick="resetFilters()">Reset Filters</button>
@@ -86,14 +85,14 @@
                 <button class="arrow" id="next">&gt;</button>
             </div>
             <div id="screenshot">
-                <div class="screenshot-display">
-                    <button class="arrow-left" id="left-first">&lt;</button>
-                    <div class="info">
+                <div class="screenshot-display" id="left-display">
+                    <button class="arrow-left" id="left-first" onclick="previousImage('left')">⬅️</button>
+                    <div class="info" id="left-info">
                         <h2>Left Display</h2>
-                        <p><i>06:11 Uhr</i></p>
-                        <p><b>Screenshotseite:</b></br>Stadtteil auswählen</p>
-                        <p><b>Temperatur:</b></br>6 Grad</p>
-                        <p><b>Wetterstatus:</b></br>regnet</p>
+                        <p><i>Zeit:</i> <span id="left-time"></span></p>
+                        <p><b>Screenshotseite:</b></br><span id="left-location"></span></p>
+                        <p><b>Temperatur:</b></br><span id="left-temperature"></span></p>
+                        <p><b>Wetterstatus:</b></br><span id="left-weather"></span></p>
                     </div>
                     <div class="row" id="imageContainerLeft">
                         <!-- Bilder werden hier dynamisch eingefügt -->
@@ -101,17 +100,17 @@
                     <div class="heart-symbol-container">
                         <div class="heart-symbol empty left" onclick="toggleHeart('left')"></div>
                     </div>
-                    <button class="arrow-right" id="right-first">&gt;</button>
+                    <button class="arrow-right" id="right-first" onclick="nextImage('left')">➡️</button>
                 </div>
 
-                <div class="screenshot-display">
-                    <button class="arrow-left" id="left-second">&lt;</button>
-                    <div class="info">
+                <div class="screenshot-display" id="right-display">
+                    <button class="arrow-left" id="left-second" onclick="previousImage('right')">⬅️</button>
+                    <div class="info" id="right-info">
                         <h2>Right Display</h2>
-                        <p><i>07:51 Uhr</i></p>
-                        <p><b>Screenshotseite:</b></br>Startseite</p>
-                        <p><b>Temperatur:</b></br>9 Grad</p>
-                        <p><b>Wetterstatus:</b></br>bewölkt</p>
+                        <p><i>Zeit:</i> <span id="right-time"></span></p>
+                        <p><b>Screenshotseite:</b></br><span id="right-location"></span></p>
+                        <p><b>Temperatur:</b></br><span id="right-temperature"></span></p>
+                        <p><b>Wetterstatus:</b></br><span id="right-weather"></span></p>
                     </div>
                     <div class="row" id="imageContainerRight">
                         <!-- Bilder werden hier dynamisch eingefügt -->
@@ -119,7 +118,7 @@
                     <div class="heart-symbol-container">
                         <div class="heart-symbol empty right" onclick="toggleHeart('right')"></div>
                     </div>
-                    <button class="arrow-right" id="right-second">&gt;</button>
+                    <button class="arrow-right" id="right-second" onclick="nextImage('right')">➡️</button>
                 </div>
 
             </div>
