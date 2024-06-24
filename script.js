@@ -236,9 +236,10 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log('Response text:', text); // Log the raw response text
             images = JSON.parse(text);
             console.log('Fetched images:', images); // Log fetched images
-              
-            filterImagesByDate(); // Filter images based on the selected date
+             
             filterImagesByDate2();
+            filterImagesByDate(); // Filter images based on the selected date
+           
          
         } catch (error) {
             console.error('Fehler:', error);
@@ -256,7 +257,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 const img = leftFilteredImages[index];
                 imageContainerLeft.innerHTML = `<img src="${img.path}" alt="Screenshot" />`;
                 console.log('Showing left image:', img.path); // Log showing image
-                updateImageInfo(img, leftInfo); // Update image information
+              
             } else {
                 imageContainerLeft.innerHTML = 'Keine passenden linken Bilder gefunden.';
                 console.log('No left images matching the criteria.'); // Log no images message
@@ -271,9 +272,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 const img = rightFilteredImages[index];
                 imageContainerRight.innerHTML = `<img src="${img.path}" alt="Screenshot" />`;
                 console.log('Showing right image:', img.path); // Log showing image
-                updateImageInfo(img, rightInfo); // Update image information
+              //  updateImageInfo(img, rightInfo); // Update image information
             } else {
-                imageContainerRight.innerHTML = 'Keine passenden rechten Bilder gefunden.';
+                imageContainerRight.innerHTML = 'Keine passenden rechten3 Bilder gefunden.';
                 console.log('No right images matching the criteria.'); // Log no images message
             }
         }
@@ -289,25 +290,25 @@ document.addEventListener('DOMContentLoaded', function () {
         prevBtn1.addEventListener('click', function () {
             currentIndex = (currentIndex - 1 + filteredImages.length) % filteredImages.length;
             showImageLeft(currentIndex);
-            showImageRight(currentIndex); // Display right images as well
+           // Display right images as well
         });
         
         nextBtn1.addEventListener('click', function () {
             currentIndex = (currentIndex + 1) % filteredImages.length;
             showImageLeft(currentIndex);
-            showImageRight(currentIndex); // Display right images as well
+           // Display right images as well
         });
         
         // Event Listeners for the next and previous buttons for right images
         prevBtn2.addEventListener('click', function () {
             currentIndex = (currentIndex - 1 + filteredImages.length) % filteredImages.length;
-            showImageLeft(currentIndex);
+           
             showImageRight(currentIndex); // Display right images as well
         });
         
         nextBtn2.addEventListener('click', function () {
             currentIndex = (currentIndex + 1) % filteredImages.length;
-            showImageLeft(currentIndex);
+            
             showImageRight(currentIndex); // Display right images as well
         });
         
@@ -323,12 +324,12 @@ document.addEventListener('DOMContentLoaded', function () {
             // Check if there are filtered images to display
             if (filteredImages.length > 0) {
                 currentIndex = 0;
-                showImageRight(currentIndex);
+                filterImagesByTime();
                 
                  // Display right images as well
             } else {
                 // Handle case when no images match the selected date
-                imageContainerLeft.innerHTML = 'Keine Bilder für das ausgewählte Datum gefunden.';
+               
                 imageContainerRight.innerHTML = 'Keine Bilder für das ausgewählte Datum gefunden.';
                 console.log('No images for the selected date.');
             }
@@ -342,18 +343,27 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log('Filtered images by date:', filteredImages2); // Log filtered images
             
             // Check if there are filtered images to display
-            if (filteredImages2.length > 0) {
+  
                 currentIndex = 0;
-                showImageLeft(currentIndex);
+                
                 
                  // Display right images as well
-            } else {
-                // Handle case when no images match the selected date
-                imageContainerLeft.innerHTML = 'Keine Bilder für das ausgewählte Datum gefunden.';
-                imageContainerRight.innerHTML = 'Keine Bilder für das ausgewählte Datum gefunden.';
-                console.log('No images for the selected date34.');
-            }
+                 filterImagesByTime();
         }
+
+        function filterImagesByTime() {
+            const selectedTime = timeInput.value; // Get selected time from input
+            console.log('Selected time:', selectedTime); // Log selected time
+            if (selectedTime) {
+                filteredImages = filteredImages.filter(img => img.time === selectedTime);
+                console.log('Filtered images by date and time:', filteredImages); // Log filtered images by date and time
+            }
+            currentIndex = 0;
+            showImageLeft(currentIndex);
+            showImageRight(currentIndex);
+            timeInput.value = ''; // Reset time input
+        }
+    
 
     // Event Listener for the time input to trigger filtering
     timeInput.addEventListener('change', function () {
