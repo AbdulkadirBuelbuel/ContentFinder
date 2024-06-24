@@ -9,6 +9,11 @@ body {
     font-family: Arial, sans-serif;
 }
 
+#logo {
+    width: 15%;
+    height: 15%;
+}
+
 header {
     display: flex;
     align-items: center;
@@ -26,6 +31,11 @@ header img {
     width: 2.8125rem;
     height: 2.8125rem;
     margin: 0 0.625rem;
+}
+
+#heart-icon,
+#filter-icon {
+    background-color: gray;
 }
 
 main {
@@ -131,7 +141,9 @@ aside#sidebar {
     cursor: pointer;
 }
 
-.dropdown-content {
+.dropdown-content_location,
+.dropdown-content_temperature,
+.dropdown-content_weather {
     display: none;
     position: absolute;
     background-color: #f9f9f9;
@@ -145,19 +157,34 @@ aside#sidebar {
     z-index: 1;
 }
 
-.dropdown-content p {
+.dropdown-content_location p {
     color: black;
-    padding: 7% 5%;
+    padding: 2.5% 5%;
     text-decoration: none;
     display: block;
 }
 
-.dropdown-content p:hover {
+.dropdown-content_temperature p,
+.dropdown-content_weather p {
+    color: black;
+    padding: 5% 5%;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content_location p:hover,
+.dropdown-content_temperature p:hover,
+.dropdown-content_weather p:hover {
     background-color: #f1f1f1;
 }
 
-.dropdown:hover .dropdown-content {
+.show {
     display: block;
+}
+
+.menu {
+    width: 5%;
+    height: auto;
 }
 
 #reset-filters {
@@ -172,7 +199,9 @@ aside#sidebar {
 }
 
 #reset-filters:hover {
-    background-color: lightgray;
+    background-color: darkred;
+    font-weight: bold;
+    color: #cdcdcd;
 }
 
 section#content {

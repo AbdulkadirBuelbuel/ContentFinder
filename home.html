@@ -7,7 +7,7 @@
     <meta name="description"
         content="Software, die die Bildschirmfotos auf eine Art und Weise visualisiert, die es ermöglicht, das Nutzerverhalten besser zu verstehen.">
     <meta name="keywords" content="content, finder">
-    <meta name="author" content="Abdulkadir Bülbül, Adis, Ali Hamid, Fabian Richter">
+    <meta name="author" content="Abdulkadir Bülbül, Adis Talic, Ali Hamid, Fabian Richter">
     <title>Home</title>
     <!-- FullCalendar CSS -->
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css" rel="stylesheet">
@@ -19,11 +19,10 @@
 
 <body>
     <header>
+        <img id="logo" src="icon_header/Illus.png" alt="logo">
         <h1>ContentFinders</h1>
-        <a href="saved.html"><img id="herzsymbol" src="herzsymbol.png" alt="Herzsymbol"></a>
-        <img id="filter-symbol" src="filter.png" alt="Filter">
-        <img id="statistics" src="statistics.png" alt="Statistics">
-        <div id="rect"></div>
+        <a href="saved.html"><img id="heart-icon" src="icon_header/heart-shape.png" alt="Herzsymbol"></a>
+        <img id="filter-icon" src="icon_header/filter.png" alt="Filter">
     </header>
     <main id="home">
         <aside id="sidebar">
@@ -40,18 +39,24 @@
             <div id="expansion">
                 <div class="dropdown location">
                     <button class="dropbtn-location">Standort wählen</button>
-                    <div class="dropdown-content">
-                        <p onclick="selectDropdown(this, 'location')">Screenshotseite - Kein Wert</p>
-                        <p onclick="selectDropdown(this, 'location')">Screenshotseite - Stadtteil auswählen</p>
-                        <p onclick="selectDropdown(this, 'location')">Screenshotseite - Startseite</p>
-                        <p onclick="selectDropdown(this, 'location')">Screenshotseite - Ort suchen</p>
-                        <p onclick="selectDropdown(this, 'location')">Screenshotseite - Route berechnen</p>
-                        <p onclick="selectDropdown(this, 'location')">Screenshotseite - Point of Interest</p>
+                    <div class="dropdown-content_location">
+                        <p onclick="selectDropdown(this, 'location')">Screenshotseite - <img class="menu"
+                                src="menu-icons/map.png" alt="Bild1/"></p>
+                        <p onclick="selectDropdown(this, 'location')">Screenshotseite - <img class="menu"
+                                src="menu-icons/linegraph.png" alt="Bild2/"></p>
+                        <p onclick="selectDropdown(this, 'location')">Screenshotseite - <img class="menu"
+                                src="menu-icons/notification.png" alt="Bild3/"></p>
+                        <p onclick="selectDropdown(this, 'location')">Screenshotseite - <img class="menu"
+                                src="menu-icons/route.png" alt="Bild4/"></p>
+                        <p onclick="selectDropdown(this, 'location')">Screenshotseite - <img class="menu"
+                                src="menu-icons/connection.png" alt="Bild5/"></p>
+                        <p onclick="selectDropdown(this, 'location')">Screenshotseite - <img class="menu"
+                                src="menu-icons/language.png" alt="Bild6/"></p>
                     </div>
                 </div>
                 <div class="dropdown temperature">
                     <button class="dropbtn-temperature">Temperatur wählen</button>
-                    <div class="dropdown-content">
+                    <div class="dropdown-content_temperature">
                         <p onclick="selectDropdown(this, 'temperature')">Temperatur: Kein Wert</p>
                         <p onclick="selectDropdown(this, 'temperature')">Temperatur: -10 - 0 Grad</p>
                         <p onclick="selectDropdown(this, 'temperature')">Temperatur: 0 - 10 Grad</p>
@@ -62,7 +67,7 @@
                 </div>
                 <div class="dropdown weather">
                     <button class="dropbtn-weather">Wetterbedingung wählen</button>
-                    <div class="dropdown-content">
+                    <div class="dropdown-content_weather">
                         <p onclick="selectDropdown(this, 'weather')">Wetterstatus: Kein Wert</p>
                         <p onclick="selectDropdown(this, 'weather')">Wetterstatus: bewölkt</p>
                         <p onclick="selectDropdown(this, 'weather')">Wetterstatus: sonnig</p>
