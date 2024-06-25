@@ -214,9 +214,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const nextBtn2 = document.getElementById('right-second');
     const timeInput = document.getElementById('time');
     const dateSpan = document.getElementById('date-span');
-
+    const locationDropdownContent = document.getElementById('dropdown-content_location');
     let currentIndex = 0;
     let currentIndex2 = 0;
+    const rightInfo = document.getElementById('right-info');
+    const leftInfo = document.getElementById('left-info');
 
     let images = [];
     let filteredImages = [];
@@ -242,6 +244,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (leftFilteredImages.length > 0 && index >= 0 && index < leftFilteredImages.length) {
             const img = leftFilteredImages[index];
             imageContainerLeft.innerHTML = `<img src="${img.path}" alt="Screenshot" />`;
+            updateImageInfo(img, leftInfo); 
         } else {
             imageContainerLeft.innerHTML = 'Keine passenden linken Bilder gefunden.';
         }
@@ -253,9 +256,18 @@ document.addEventListener('DOMContentLoaded', function () {
         if (rightFilteredImages.length > 0 && index >= 0 && index < rightFilteredImages.length) {
             const img = rightFilteredImages[index];
             imageContainerRight.innerHTML = `<img src="${img.path}" alt="Screenshot" />`;
+            updateImageInfo(img, rightInfo); 
         } else {
             imageContainerRight.innerHTML = 'Keine passenden rechten Bilder gefunden.';
         }
+    }
+
+    function updateImageInfo(img, infoContainer) {
+        infoContainer.querySelector('i').textContent = img.time;
+        infoContainer.querySelector('a').textContent = img.date.split('/').pop();
+        infoContainer.querySelector('c').textContent = img.temperature;
+        infoContainer.querySelector('d').textContent = img.weather_conditions;
+        console.log('Updated image info:', img); // Log updated image info
     }
 
     function filterImagesByDate() {
@@ -264,6 +276,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (filteredImages.length > 0) {
             currentIndex = 0;
             filterImagesByTime();
+            filterImagesByLocation();
         } else {
             imageContainerRight.innerHTML = 'Keine Bilder für das ausgewählte Datum gefunden.';
         }
@@ -279,11 +292,23 @@ document.addEventListener('DOMContentLoaded', function () {
         showImageRight(currentIndex);
     }
 
-    function filterImagesByLocation(locationId) {
-        filteredImages = images.filter(img => img.folder_number === locationId);
-        currentIndex = 0;
-        showImageLeft(currentIndex);
-        showImageRight(currentIndex);
+    function filterImagesByLocation() {
+        if (currentLocation === null) return; // Skip if no location selected
+        console.log('Selected location:', currentLocation); // Log selected location
+    
+        // Further filter images based on the selected location
+        filteredImages = filteredImages.filter(img => img.folder_number === currentLocation);
+        console.log('Filtered images by location:', filteredImages); // Log filtered images
+    
+        if (filteredImages.length > 0) {
+            currentIndex = 0;
+            showImageLeft(currentIndex);
+            showImageRight(currentIndex); // Display right images as well
+        } else {
+            imageContainerLeft.innerHTML = 'Keine Bilder für die ausgewählte Location gefunden.';
+            imageContainerRight.innerHTML = 'Keine Bilder für die ausgewählte Location gefunden.';
+            console.log('No images for the selected location.');
+        }
     }
 
     function filterImagesByTemperature(temperature) {
@@ -300,17 +325,20 @@ document.addEventListener('DOMContentLoaded', function () {
         showImageRight(currentIndex);
     }
 
-    function selectDropdown(element, dropdownType) {
-        const selectedId = element.id;
-        if (dropdownType === 'location') {
-            filterImagesByLocation(selectedId);
-        } else if (dropdownType === 'temperature') {
-            filterImagesByTemperature(element.textContent);
-        } else if (dropdownType === 'weather') {
-            filterImagesByWeather(element.textContent);
+    // Event Listener for the location dropdown to trigger filtering
+    window.selectDropdown = function (element, type, value) {
+        if (type === 'location') {
+            currentLocation = value; // Update current location
+            console.log('Selected location ID:', value); // Log selected location ID
+            filterImagesByLocation(); // Filter images when location changes
         }
-    }
-    
+    };
+
+    // Toggle dropdown visibility
+    window.toggleDropdown = function (id) {
+        const dropdown = document.getElementById(id);
+        dropdown.classList.toggle('show');
+    };
 
     prevBtn1.addEventListener('click', function () {
         currentIndex = (currentIndex - 1 + filteredImages.length) % filteredImages.length;
@@ -404,7 +432,7 @@ document.addEventListener('click', function (event) {
 // Funktion zum Zurücksetzen der Filter
 function resetFilters() {
     document.querySelector('.dropdown.location .dropbtn-location').textContent = 'Standort wählen';
-    document.querySelector('.dropdown.temperature .dropbtn-temperature').textContent = 'Temperatur wählen';
-    document.querySelector('.dropdown.weather .dropbtn-weather').textContent = 'Wetterbedingung wählen';
     document.getElementById('time').value = '';
+    document.getElementById('imageContainerLeft').innerHTML = ''; // Clear left image container
+    document.getElementById('imageContainerRight').innerHTML = ''; // Clear right image container
 }
